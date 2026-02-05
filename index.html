@@ -1,24 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday 🎂</title>
+<meta charset="UTF-8">
+<title>Happy Birthday Aaria 🎀</title>
 
-  <!-- Three.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #ffeef6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
 
-  <link rel="stylesheet" href="style.css">
+/* Start Screen */
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(255,214,232,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+#startBtn {
+  padding: 14px 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #ff4d94;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Scene */
+.scene {
+  width: 320px;
+  height: 320px;
+  perspective: 1000px;
+}
+
+.cake {
+  width: 240px;
+  height: 220px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: spin 14s infinite linear;
+}
+
+@keyframes spin {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+/* Layers */
+.layer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 20px;
+}
+
+.layer1 {
+  width: 240px;
+  height: 70px;
+  bottom: 0;
+  background: linear-gradient(#ff9fcf, #ff6fae);
+}
+
+.layer2 {
+  width: 190px;
+  height: 60px;
+  bottom: 70px;
+  background: linear-gradient(#ffc1dc, #ff85b3);
+}
+
+.layer3 {
+  width: 140px;
+  height: 50px;
+  bottom: 130px;
+  background: linear-gradient(#ffe4f0, #ffb6d5);
+}
+
+/* Frosting */
+.frost {
+  position: absolute;
+  bottom: -8px;
+  width: 100%;
+  height: 16px;
+  background: #fff0f7;
+  border-radius: 50%;
+}
+
+/* Text */
+.top-text {
+  position: absolute;
+  top: -18px;
+  width: 100%;
+  text-align: center;
+  font-weight: 600;
+  color: #d63384;
+  font-size: 14px;
+}
+
+/* Calendar */
+.calendar {
+  position: absolute;
+  top: -95px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  background: white;
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  font-size: 10px;
+}
+
+.calendar h4 {
+  margin: 0;
+  text-align: center;
+  color: #ff4d94;
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-top: 6px;
+  text-align: center;
+}
+
+.highlight {
+  background: #ff4d94;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+</style>
 </head>
+
 <body>
 
-  <div id="overlay">
-    <div id="messageBox">
-      <p id="messageText"></p>
-      <button onclick="closeMessage()">Close</button>
-    </div>
-  </div>
+<!-- 🎵 Music -->
+<audio id="bgMusic" loop>
+  <source src="futile-devices.mp3" type="audio/mpeg">
+</audio>
 
-  <script src="script.js"></script>
+<!-- Start Screen -->
+<div id="startScreen">
+  <button id="startBtn">🎀 Tap to Start 🎀</button>
+</div>
+
+<div class="scene">
+  <div class="cake">
+
+    <div class="calendar">
+      <h4>February</h4>
+      <div class="dates">
+        <span></span><span></span><span></span><span>1</span><span>2</span><span>3</span><span>4</span>
+        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+        <span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span>
+        <span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span>
+        <span class="highlight">26</span>
+      </div>
+    </div>
+
+    <div class="layer layer3">
+      <div class="top-text">🎀 Happy Birthday Aaria 🎀</div>
+      <div class="frost"></div>
+    </div>
+
+    <div class="layer layer2"><div class="frost"></div></div>
+    <div class="layer layer1"><div class="frost"></div></div>
+
+  </div>
+</div>
+
+<script>
+document.getElementById("startBtn").onclick = () => {
+  document.getElementById("bgMusic").play();
+  document.getElementById("startScreen").style.display = "none";
+};
+</script>
+
 </body>
 </html>
