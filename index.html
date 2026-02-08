@@ -61,6 +61,7 @@ h1{
   position:relative;
   margin:0 auto;
   box-shadow:0 12px 25px rgba(0,0,0,0.3);
+  cursor:pointer;
 }
 
 /* ICING */
@@ -126,6 +127,7 @@ h1{
   transform:translateX(-50%);
   display:flex;
   gap:32px;
+  pointer-events:none; /* so clicking cake works anywhere */
 }
 .candle{
   width:10px;
@@ -147,6 +149,15 @@ h1{
 @keyframes flicker{
   from{transform:scale(1)}
   to{transform:scale(1.25)}
+}
+
+/* WISH MESSAGE */
+#wishMsg{
+  margin-top:14px;
+  font-size:16px;
+  font-weight:600;
+  color:#444;
+  display:none;
 }
 
 /* CALENDAR */
@@ -239,7 +250,7 @@ h1{
 <div id="main" onclick="confetti()">
   <h1>Happy Birthday Aaria 🤍</h1>
 
-  <div class="cake">
+  <div class="cake" id="cake">
     <div class="sprinkle s1"></div>
     <div class="sprinkle s2"></div>
     <div class="sprinkle s3"></div>
@@ -258,6 +269,8 @@ h1{
 
     <div class="name">Aaria</div>
   </div>
+
+  <div id="wishMsg">Make a wish ✨</div>
 
   <div class="calendar">
     <h3>8teen</h3>
@@ -310,6 +323,22 @@ function openPopup(src){
 function closePopup(){
   document.getElementById("popup").style.display="none";
 }
+
+/* BLOW CANDLES (tap cake) */
+const cakeEl = document.getElementById("cake");
+const wishMsg = document.getElementById("wishMsg");
+let candlesOut = false;
+
+cakeEl.addEventListener("click", (e) => {
+  e.stopPropagation(); 
+  candlesOut = !candlesOut;
+
+  document.querySelectorAll(".flame").forEach(flame => {
+    flame.style.display = candlesOut ? "none" : "block";
+  });
+
+  wishMsg.style.display = candlesOut ? "block" : "none";
+});
 </script>
 
 </body>
