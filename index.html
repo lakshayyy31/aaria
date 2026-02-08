@@ -1,266 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday Aaria 🤍</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday Aaria</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Arial, sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: url("night.jpg") center/cover no-repeat fixed;
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* START SCREEN */
-#startScreen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background: rgba(0,0,0,0.45);
-  z-index:10;
-}
-#startBtn{
-  padding:18px 36px;
-  font-size:18px;
-  border:none;
-  border-radius:40px;
-  background:#f1b2a2;
-  color:white;
-  cursor:pointer;
+body {
+  margin: 0;
+  background: url('night.jpg') center/cover no-repeat;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* MAIN CONTENT */
-#content{
-  display:none;
-  flex-direction:column;
-  gap:40px;
-  background: rgba(255,255,255,0.85);
-  padding:40px;
-  border-radius:30px;
+/* ---------- START SCREEN ---------- */
+#startScreen {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
 }
 
-/* TOP ROW */
-.top{
-  display:flex;
-  gap:60px;
-  align-items:center;
+#startBtn {
+  padding: 16px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  cursor: pointer;
 }
 
-/* TEXT */
-.text-block{text-align:center;}
-h1{margin-bottom:100px;font-weight:500;}
-
-/* 🎂 CAKE */
-.cake2{
-  width:260px;
-  height:180px;
-  background:linear-gradient(#f7c6b7,#f1b2a2);
-  border-radius:90px;
-  position:relative;
-  box-shadow:0 25px 40px rgba(0,0,0,.15);
+/* ---------- MAIN ---------- */
+#main {
+  display: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-/* Candles */
-.candle2{
-  position:absolute;
-  top:-25px;
-  width:10px;
-  height:35px;
-  background:#ffd1dc;
-  border-radius:4px;
-}
-.candle2::after{
-  content:"";
-  position:absolute;
-  top:-12px;
-  left:-3px;
-  width:16px;
-  height:16px;
-  background:radial-gradient(circle,#fff6c7,#ffb703);
-  border-radius:50%;
-}
-.c1{left:95px}
-.c2{left:125px}
-.c3{left:155px}
-
-/* Name */
-.name{
-  position:absolute;
-  top:80px;
-  width:100%;
-  color:white;
-  font-weight:500;
+/* ---------- TITLE ---------- */
+h1 {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+  color: white;
 }
 
-/* 📅 Calendar */
-.calendar{
-  width:210px;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 20px 35px rgba(0,0,0,.15);
-}
-.cal-top{
-  background:#f1b2a2;
-  color:white;
-  padding:12px;
-  font-weight:600;
-  text-align:center;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:6px;
-  padding:12px;
-  font-size:13px;
-  text-align:center;
-}
-.day{opacity:.5}
-.date{padding:6px;border-radius:50%;}
-.mark{border:3px solid #f1b2a2;font-weight:600;}
-
-/* 📸 PHOTOS */
-.photos{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-}
-.photos img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  border-radius:18px;
-  cursor:pointer;
-  transition:.3s;
-}
-.photos img:hover{transform:scale(1.05);}
-
-/* FULLSCREEN VIEW */
-#viewer{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:20;
-}
-#viewer img{
-  max-width:90%;
-  max-height:90%;
-  border-radius:20px;
+/* ---------- CAKE ---------- */
+.cake {
+  position: absolute;
+  left: 50%;
+  bottom: 120px;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 130px;
+  background: #f7b2b7;
+  border-radius: 12px;
 }
 
-/* 🎉 CONFETTI */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  top:-10px;
-  animation:fall linear forwards;
-  z-index:9999;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);opacity:0;}
+/* chocolate drip */
+.cake::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 25px;
+  background: #5a2e2e;
+  border-radius: 12px 12px 20px 20px;
 }
 
-/* MOBILE */
-@media(max-width:800px){
-  .top{flex-direction:column;gap:40px}
-  .photos{grid-template-columns:repeat(2,1fr)}
-  h1{margin-bottom:80px}
+/* name on cake */
+.cake-name {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  font-size: 26px;
+  color: white;
+}
+
+/* cream dots */
+.dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  top: 45px;
+}
+
+.dot:nth-child(1) { left: 20px; }
+.dot:nth-child(2) { left: 60px; }
+.dot:nth-child(3) { left: 100px; }
+.dot:nth-child(4) { left: 140px; }
+.dot:nth-child(5) { left: 180px; }
+
+/* ---------- CANDLES ---------- */
+.candle {
+  position: absolute;
+  width: 10px;
+  height: 35px;
+  background: white;
+  top: -35px;
+}
+
+.candle:nth-child(6) { left: 70px; }
+.candle:nth-child(7) { left: 105px; }
+.candle:nth-child(8) { left: 140px; }
+
+/* flames */
+.flame {
+  position: absolute;
+  top: -15px;
+  left: -3px;
+  width: 16px;
+  height: 16px;
+  background: orange;
+  border-radius: 50%;
+  animation: flicker 0.2s infinite alternate;
+}
+
+@keyframes flicker {
+  from { transform: scale(1); opacity: 0.9; }
+  to { transform: scale(1.2); opacity: 1; }
+}
+
+/* ---------- CALENDAR ---------- */
+.calendar {
+  position: absolute;
+  right: 20px;
+  top: 120px;
+  width: 220px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.calendar h3 {
+  text-align: center;
+  margin: 5px 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.day {
+  padding: 6px;
+}
+
+.marked {
+  background: #ff4d6d;
+  color: white;
+  border-radius: 50%;
+}
+
+/* ---------- CONFETTI ---------- */
+.confetti {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
 }
 </style>
 </head>
 
-<body onclick="confettiBurst()">
+<body>
 
 <!-- START -->
 <div id="startScreen">
-  <button id="startBtn">Tap to start 🎵</button>
+  <button id="startBtn">Tap to Start 🎉</button>
 </div>
 
 <!-- MAIN -->
-<div id="content">
-  <div class="top">
-    <div class="text-block">
-      <h1>Happy Birthday Aaria 🤍</h1>
-      <div class="cake2">
-        <div class="candle2 c1"></div>
-        <div class="candle2 c2"></div>
-        <div class="candle2 c3"></div>
-        <div class="name">Aaria</div>
-      </div>
-    </div>
+<div id="main">
+  <h1>Happy Birthday Aaria 🤍</h1>
 
-    <div class="calendar">
-      <div class="cal-top">February · 8teen</div>
-      <div class="grid">
-        <div class="day">S</div><div class="day">M</div><div class="day">T</div>
-        <div class="day">W</div><div class="day">T</div><div class="day">F</div><div class="day">S</div>
-        <div></div><div></div>
-        <div class="date">1</div><div class="date">2</div><div class="date">3</div><div class="date">4</div><div class="date">5</div>
-        <div class="date">6</div><div class="date">7</div><div class="date">8</div><div class="date">9</div><div class="date">10</div><div class="date">11</div><div class="date">12</div>
-        <div class="date">13</div><div class="date">14</div><div class="date">15</div><div class="date">16</div><div class="date">17</div><div class="date">18</div><div class="date">19</div>
-        <div class="date">20</div><div class="date">21</div><div class="date">22</div><div class="date">23</div><div class="date">24</div><div class="date">25</div>
-        <div class="date mark">26</div>
-        <div class="date">27</div><div class="date">28</div>
-      </div>
-    </div>
+  <!-- CAKE -->
+  <div class="cake">
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="dot"></div><div class="dot"></div>
+
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+    <div class="candle"><div class="flame"></div></div>
+
+    <div class="cake-name">Aaria</div>
   </div>
 
-  <!-- PHOTOS -->
-  <div class="photos">
-    <img src="a1.png" onclick="openImg(this.src)">
-    <img src="a2.png" onclick="openImg(this.src)">
-    <img src="a3.png" onclick="openImg(this.src)">
-    <img src="a4.png" onclick="openImg(this.src)">
+  <!-- CALENDAR -->
+  <div class="calendar">
+    <h3>8teen</h3>
+    <h4>February</h4>
+    <div class="grid">
+      <div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+      <div></div><div></div><div></div>
+      <div>1</div><div>2</div><div>3</div><div>4</div>
+      <div>5</div><div>6</div><div>7</div>
+      <div>8</div><div>9</div><div>10</div><div>11</div>
+      <div>12</div><div>13</div><div>14</div>
+      <div>15</div><div>16</div><div>17</div>
+      <div class="marked">26</div>
+    </div>
   </div>
 </div>
 
-<!-- IMAGE VIEWER -->
-<div id="viewer" onclick="this.style.display='none'">
-  <img id="viewImg">
-</div>
-
-<audio id="music" loop>
-  <source src="futile-devices.mp3" type="audio/mpeg">
-</audio>
+<audio id="music" src="futile-devices.mp3" loop></audio>
 
 <script>
-const music=document.getElementById("music");
-const startBtn=document.getElementById("startBtn");
-const startScreen=document.getElementById("startScreen");
-const content=document.getElementById("content");
+const startBtn = document.getElementById("startBtn");
+const startScreen = document.getElementById("startScreen");
+const main = document.getElementById("main");
+const music = document.getElementById("music");
 
-startBtn.onclick=()=>{
+startBtn.onclick = () => {
+  startScreen.style.display = "none";
+  main.style.display = "block";
   music.play();
-  startScreen.style.display="none";
-  content.style.display="flex";
 };
 
-function confettiBurst(){
-  if(content.style.display!=="flex") return;
-  for(let i=0;i<40;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-    c.style.animationDuration=2+Math.random()*2+"s";
+document.addEventListener("click", () => {
+  for (let i = 0; i < 20; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,60%)`;
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
+    setTimeout(() => c.remove(), 3000);
   }
-}
-
-function openImg(src){
-  document.getElementById("viewer").style.display="flex";
-  document.getElementById("viewImg").src=src;
-}
+});
 </script>
 
 </body>
