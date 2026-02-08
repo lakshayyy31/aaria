@@ -8,11 +8,13 @@
 body{
   margin:0;
   min-height:100vh;
-  background:#ffffff;
   font-family:Arial, sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
+
+  /* 🌌 BACKGROUND IMAGE */
+  background: url("night.jpg") center/cover no-repeat fixed;
 }
 
 /* Start screen */
@@ -29,12 +31,17 @@ body{
   cursor:pointer;
 }
 
-/* Layout */
+/* Main layout */
 #content{
   display:none;
   display:flex;
   align-items:center;
   gap:60px;
+
+  /* readable overlay */
+  background: rgba(255,255,255,0.85);
+  padding:40px;
+  border-radius:30px;
 }
 
 /* Text */
@@ -43,31 +50,30 @@ body{
 }
 
 h1{
-  margin-bottom:100px; /* PUSHED UP – no collision possible */
+  margin-bottom:100px;
   font-weight:500;
 }
 
-/* 🎂 Cake (NO FROSTING AT ALL) */
-.cake{
+/* 🎂 Cake */
+.cake2{
   width:260px;
-  height:170px;
+  height:180px;
   background:linear-gradient(#f7c6b7,#f1b2a2);
-  border-radius:85px;
+  border-radius:90px;
   position:relative;
-  margin:0 auto;
   box-shadow:0 25px 40px rgba(0,0,0,.15);
 }
 
-/* Candles – lowered */
-.candle{
+/* Candles */
+.candle2{
   position:absolute;
-  top:-35px; /* safely below text */
+  top:-25px;
   width:10px;
   height:35px;
   background:#ffd1dc;
   border-radius:4px;
 }
-.candle::after{
+.candle2::after{
   content:"";
   position:absolute;
   top:-12px;
@@ -84,20 +90,19 @@ h1{
 /* Name on cake */
 .name{
   position:absolute;
-  top:75px;
+  top:80px;
   width:100%;
   color:white;
   font-weight:500;
 }
 
-/* 📅 Calendar (RIGHT SIDE) */
+/* 📅 Calendar (RIGHT) */
 .calendar{
   width:210px;
   border-radius:18px;
   overflow:hidden;
   box-shadow:0 20px 35px rgba(0,0,0,.15);
 }
-
 .cal-top{
   background:#f1b2a2;
   color:white;
@@ -105,7 +110,6 @@ h1{
   font-weight:600;
   text-align:center;
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(7,1fr);
@@ -114,16 +118,13 @@ h1{
   font-size:13px;
   text-align:center;
 }
-
 .day{opacity:.5}
 .date{
   padding:6px;
   border-radius:50%;
 }
-
-/* 26 FEB CIRCLED */
 .mark{
-  border:2px solid #f1b2a2;
+  border:3px solid #f1b2a2;
   font-weight:600;
 }
 
@@ -164,10 +165,10 @@ h1{
   <div class="text-block">
     <h1>Happy Birthday Aaria 🤍</h1>
 
-    <div class="cake">
-      <div class="candle c1"></div>
-      <div class="candle c2"></div>
-      <div class="candle c3"></div>
+    <div class="cake2">
+      <div class="candle2 c1"></div>
+      <div class="candle2 c2"></div>
+      <div class="candle2 c3"></div>
       <div class="name">Aaria</div>
     </div>
   </div>
@@ -220,6 +221,7 @@ function confettiBurst(){
 
 </body>
 </html>
+
 
 
 
