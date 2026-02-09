@@ -91,7 +91,7 @@
     display:none;
     position:relative;
     z-index:5;
-    width:min(880px, 94vw);
+    width:min(920px, 95vw);
   }
 
   /* NAV (ppt buttons) */
@@ -104,6 +104,8 @@
     gap:12px;
     z-index:40;
   }
+  .nav.hidden{ display:none; }
+
   .nav button{
     border:none;
     cursor:pointer;
@@ -111,7 +113,7 @@
     border-radius:999px;
     background:rgba(255,255,255,0.92);
     box-shadow:0 12px 28px rgba(0,0,0,0.25);
-    font-weight:700;
+    font-weight:800;
   }
   .nav button:disabled{
     opacity:0.5;
@@ -127,49 +129,61 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow:var(--shadow);
-    padding:48px 42px;
-    min-height:520px;
+    padding:42px 44px;
+    min-height:560px;
     overflow:hidden;
   }
 
   /* slide switching */
-  .slide{
-    display:none;
-    animation:slideIn .35s ease;
-  }
+  .slide{ display:none; animation:slideIn .35s ease; }
   .slide.active{ display:block; }
   @keyframes slideIn{
     from{ opacity:0; transform:translateY(10px); }
     to{ opacity:1; transform:translateY(0); }
   }
 
-  /* TITLE */
+  /* ---------- SLIDE 1 ---------- */
   .title{
     text-align:center;
-    margin:0 0 26px;
-    font-size:30px;
+    margin:0 0 18px;
+    font-size:32px;
     color:#fff;
-    text-shadow:0 10px 30px rgba(0,0,0,0.5);
+    text-shadow:0 10px 30px rgba(0,0,0,0.55);
+  }
+
+  /* push content down so candles don't collide */
+  .contentRow{
+    display:flex;
+    gap:22px;
+    align-items:flex-start;
+    justify-content:center;
+    margin-top:10px;
+  }
+
+  .centerCol{
+    position:relative;
+    width:520px;
+    max-width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:18px; /* important to avoid title collision */
   }
 
   /* CAKE */
-  .cakeWrap{
-    display:flex;
-    justify-content:center;
-    margin-top:6px;
-  }
   .cake{
-    width:240px;
-    height:155px;
+    width:260px;
+    height:170px;
     background:#f6b1c3;
-    border-radius:24px;
+    border-radius:26px;
     position:relative;
     cursor:pointer;
+    margin-top:6px;
     animation:cakeGlow 2.8s ease-in-out infinite;
   }
   @keyframes cakeGlow{
-    0%,100%{ box-shadow:0 12px 25px rgba(0,0,0,0.25), 0 0 0 rgba(255,183,213,0); }
-    50%{ box-shadow:0 16px 35px rgba(0,0,0,0.25), 0 0 26px rgba(255,183,213,0.55); }
+    0%,100%{ box-shadow:0 12px 25px rgba(0,0,0,0.22), 0 0 0 rgba(255,183,213,0); }
+    50%{ box-shadow:0 18px 40px rgba(0,0,0,0.24), 0 0 28px rgba(255,183,213,0.55); }
   }
   .cake::before{
     content:"";
@@ -179,32 +193,32 @@
     width:100%;
     height:30px;
     background:#ffd6e0;
-    border-radius:24px 24px 14px 14px;
+    border-radius:26px 26px 16px 16px;
   }
+
+  /* sprinkles */
+  .sprinkle{ position:absolute; width:6px; height:6px; border-radius:50%; }
+  .s1{top:14px; left:36px; background:#ff6f91}
+  .s2{top:22px; left:98px; background:#ffc75f}
+  .s3{top:15px; left:165px; background:#845ec2}
+  .s4{top:24px; left:218px; background:#4d96ff}
+  .s5{top:10px; left:132px; background:#00c9a7}
 
   /* PHOTO ON CAKE */
   .cake-photo{
     position:absolute;
-    top:38px;
+    top:44px;
     left:50%;
     transform:translateX(-50%);
-    width:78px;
-    height:78px;
-    border-radius:14px;
+    width:86px;
+    height:86px;
+    border-radius:16px;
     overflow:hidden;
     border:3px solid rgba(255,255,255,0.95);
-    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    box-shadow:0 10px 20px rgba(0,0,0,0.25);
     background:#fff;
   }
   .cake-photo img{ width:100%; height:100%; object-fit:cover; }
-
-  /* sprinkles */
-  .sprinkle{ position:absolute; width:6px; height:6px; border-radius:50%; }
-  .s1{top:14px; left:30px; background:#ff6f91}
-  .s2{top:22px; left:90px; background:#ffc75f}
-  .s3{top:15px; left:150px; background:#845ec2}
-  .s4{top:24px; left:195px; background:#4d96ff}
-  .s5{top:10px; left:120px; background:#00c9a7}
 
   /* Name bottom */
   .name{
@@ -217,10 +231,10 @@
     color:#1b1b1b;
   }
 
-  /* Candles */
+  /* Candles: lowered a bit to avoid title collision */
   .candles{
     position:absolute;
-    top:-44px;
+    top:-30px; /* was -44 */
     left:50%;
     transform:translateX(-50%);
     display:flex;
@@ -229,7 +243,7 @@
   }
   .candle{
     width:10px;
-    height:38px;
+    height:36px;
     background:white;
     border-radius:3px;
     position:relative;
@@ -249,11 +263,11 @@
   /* Smoke */
   .smoke-wrap{
     position:absolute;
-    top:-58px;
+    top:-48px;
     left:50%;
     transform:translateX(-50%);
-    width:160px;
-    height:65px;
+    width:170px;
+    height:70px;
     pointer-events:none;
     display:none;
   }
@@ -269,84 +283,66 @@
     100%{ transform:translateY(-40px) scale(1.5); opacity:0; }
   }
 
-  /* Wish msg */
   #wishMsg{
-    text-align:center;
-    margin-top:14px;
+    margin-top:12px;
     font-size:16px;
-    font-weight:800;
+    font-weight:900;
     color:#fff;
     display:none;
     text-shadow:0 0 12px rgba(255,255,255,0.9),
                 0 0 22px rgba(255,160,200,0.9);
   }
 
-  /* Calendar (right side) */
+  /* Calendar (no longer hiding) */
   .calendar{
-    position:absolute;
-    right:18px;
-    top:110px;
-    width:150px;
+    width:170px;
     background:rgba(255,255,255,0.92);
-    border-radius:16px;
-    padding:10px 10px 12px;
+    border-radius:18px;
+    padding:12px 12px 14px;
     font-size:12px;
+    box-shadow:0 14px 28px rgba(0,0,0,0.18);
   }
-  .calendar h3{ margin:6px 0 8px; text-align:center; }
+  .calendar h3{ margin:6px 0 10px; text-align:center; font-size:14px; }
   .days{
     display:grid;
     grid-template-columns:repeat(7,1fr);
-    gap:4px;
+    gap:5px;
   }
-  .day{ padding:4px; text-align:center; border-radius:8px; }
-  .mark{
-    background:pink;
-    border-radius:999px;
-    font-weight:800;
-  }
+  .day{ padding:5px 0; text-align:center; border-radius:10px; }
+  .mark{ background:#ffd1dc; border-radius:999px; font-weight:900; }
 
-  /* Photos row */
+  /* Photos row (slide 1) */
   .photos{
-    position:absolute;
-    bottom:26px;
-    left:50%;
-    transform:translateX(-50%);
     display:flex;
     gap:12px;
+    margin-top:26px;
+    justify-content:center;
   }
   .photos::before{
     content:"✦ ✧ ✦ ✧ ✦";
     position:absolute;
-    top:-26px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:18px;
-    color:white;
-    opacity:0.85;
-    text-shadow:0 0 14px rgba(255,255,255,0.95);
-  }
-  .photos::after{
-    content:"♡ ♡ ♡";
-    position:absolute;
-    bottom:-22px;
-    left:50%;
-    transform:translateX(-50%);
-    font-size:18px;
-    color:pink;
-    opacity:0.95;
-    text-shadow:0 0 14px rgba(255,150,200,0.9);
+    top:-9999px; /* disable pseudo, we’ll use a separate decor */
   }
   .photos img{
-    width:70px;
-    height:90px;
+    width:74px;
+    height:94px;
     object-fit:cover;
-    border-radius:12px;
+    border-radius:14px;
     border:2px solid rgba(255,255,255,0.9);
     cursor:pointer;
     transition:.2s;
-    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+    box-shadow:0 14px 26px rgba(0,0,0,0.22);
   }
-  .photos img:hover{ transform:scale(1.08); }
+  .photos img:hover{ transform:scale(1.07); }
+
+  .photoDecor{
+    margin-top:18px;
+    text-align:center;
+    color:rgba(255,255,255,0.92);
+    font-weight:700;
+    text-shadow:0 0 16px rgba(255,255,255,0.9);
+    letter-spacing:1px;
+  }
 
   /* Photo popup */
   #popup{
@@ -356,7 +352,7 @@
     display:none;
     justify-content:center;
     align-items:center;
-    z-index:70;
+    z-index:90;
   }
   #popup img{
     width:86%;
@@ -372,11 +368,11 @@
     width:8px;
     height:8px;
     animation:fall 2s linear forwards;
-    z-index:60;
+    z-index:80;
   }
   @keyframes fall{ to{transform:translateY(100vh) rotate(360deg)} }
 
-  /* 💌 Playlist envelope icon (top right) */
+  /* Playlist button ONLY SLIDE 1 */
   #playlistBtn{
     position:absolute;
     top:18px;
@@ -392,7 +388,7 @@
     align-items:center;
     box-shadow:0 10px 22px rgba(0,0,0,0.25);
     transition:0.2s;
-    z-index:5;
+    z-index:10;
   }
   #playlistBtn:hover{ transform:scale(1.08); }
   .envIcon{
@@ -417,7 +413,7 @@
     display:none;
     justify-content:center;
     align-items:center;
-    z-index:80;
+    z-index:95;
   }
   .popupBox{
     width:310px;
@@ -447,139 +443,214 @@
     cursor:pointer;
   }
 
-  /* ---------------- SLIDE 2 (LETTER) ---------------- */
-
+  /* ---------- SLIDE 2 ---------- */
   .letterTitle{
     text-align:center;
-    margin:0 0 18px;
-    font-size:26px;
+    margin:0 0 10px;
+    font-size:28px;
     color:#fff;
-    text-shadow:0 10px 30px rgba(0,0,0,0.5);
+    text-shadow:0 10px 30px rgba(0,0,0,0.55);
   }
-
   .hint{
     text-align:center;
     color:rgba(255,255,255,0.85);
-    margin:0 0 20px;
-    font-weight:600;
+    margin:0 0 22px;
+    font-weight:700;
   }
 
-  .envelopeStage{
-    display:flex;
-    justify-content:center;
-    margin-top:10px;
-  }
+  .envelopeStage{ display:flex; justify-content:center; margin-top:10px; }
 
+  /* BIGGER + PRETTIER ENVELOPE */
   .envelope{
     position:relative;
-    width:360px;
-    height:240px;
+    width:460px; /* bigger */
+    height:290px;
     cursor:pointer;
-    transform:translateY(0);
     transition:.25s ease;
-    filter: drop-shadow(0 18px 38px rgba(0,0,0,0.35));
+    filter: drop-shadow(0 22px 46px rgba(0,0,0,0.38));
   }
-  .envelope:hover{ transform:translateY(-2px); }
-
-  /* base */
   .env-base{
     position:absolute;
     inset:0;
-    background:rgba(255,255,255,0.92);
-    border-radius:22px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,245,245,0.9));
+    border-radius:26px;
     overflow:hidden;
+    border:1px solid rgba(255,255,255,0.55);
   }
 
-  /* pocket */
+  /* subtle lace dots */
+  .env-dots{
+    position:absolute;
+    inset:0;
+    opacity:0.35;
+    background:
+      radial-gradient(circle, rgba(255,140,180,0.55) 1px, transparent 2px);
+    background-size:18px 18px;
+    pointer-events:none;
+  }
+
   .env-pocket{
     position:absolute;
-    left:18px;
-    right:18px;
-    bottom:18px;
-    height:135px;
-    background:rgba(255,244,230,0.9);
-    border-radius:18px;
+    left:22px;
+    right:22px;
+    bottom:20px;
+    height:165px;
+    background:rgba(255,244,230,0.92);
+    border-radius:22px;
     border:1px solid rgba(0,0,0,0.06);
   }
 
-  /* flap */
   .env-flap{
     position:absolute;
     left:0; right:0;
     top:0;
-    height:140px;
+    height:170px;
     transform-origin:top center;
     transform:rotateX(0deg);
     transition:transform .55s cubic-bezier(.2,.8,.2,1);
-    background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,240,240,0.92));
-    border-radius:22px 22px 18px 18px;
-    clip-path:polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,230,240,0.92));
+    border-radius:26px 26px 20px 20px;
+    clip-path:polygon(0 0, 100% 0, 100% 66%, 50% 100%, 0 66%);
     border-bottom:1px solid rgba(0,0,0,0.04);
   }
 
-  /* seal */
   .env-seal{
     position:absolute;
     left:50%;
-    top:120px;
+    top:146px;
     transform:translateX(-50%);
-    width:44px;
-    height:44px;
+    width:52px;
+    height:52px;
     border-radius:999px;
     background:linear-gradient(180deg, #ff8fb1, #ff4d6d);
-    box-shadow:0 10px 18px rgba(0,0,0,0.22);
+    box-shadow:0 14px 22px rgba(0,0,0,0.22);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:18px;
+    font-size:20px;
     color:white;
   }
 
-  /* paper */
-  .paper{
-    position:absolute;
-    left:28px;
-    right:28px;
-    bottom:34px;
-    height:170px;
-    border-radius:18px;
+  /* ----- LETTER OVERLAY (pops big in middle) ----- */
+  #letterOverlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.72);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:120;
+    padding:18px;
+  }
+
+  .letterCard{
+    width:min(760px, 92vw);
+    max-height:84vh;
+    border-radius:26px;
     background:
       radial-gradient(circle at 18% 20%, rgba(255,255,255,0.85), rgba(255,255,255,0.65) 55%, rgba(255,255,255,0.6)),
       linear-gradient(180deg, rgba(255,244,230,0.98), rgba(255,244,230,0.9)),
       repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 6px);
-    border:1px solid rgba(0,0,0,0.06);
-    transform:translateY(0);
-    transition:transform .7s cubic-bezier(.2,.9,.2,1), opacity .5s ease;
-    opacity:0;
+    border:1px solid rgba(255,255,255,0.6);
+    box-shadow:0 22px 60px rgba(0,0,0,0.5);
+    overflow:hidden;
+    position:relative;
+    transform:translateY(8px) scale(0.98);
+    animation:cardIn .35s ease forwards;
+  }
+  @keyframes cardIn{
+    to{ transform:translateY(0) scale(1); }
+  }
+
+  .letterTopBar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:rgba(255,255,255,0.55);
+    border-bottom:1px solid rgba(0,0,0,0.05);
+  }
+  .letterTopBar h3{
+    margin:0;
+    font-size:18px;
+    font-weight:900;
+    color:#1f1f1f;
+    font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
+  }
+  .closeX{
+    border:none;
+    cursor:pointer;
+    width:40px;
+    height:40px;
+    border-radius:14px;
+    background:rgba(255,255,255,0.9);
+    box-shadow:0 10px 18px rgba(0,0,0,0.2);
+    font-size:18px;
+  }
+
+  .letterBody{
+    padding:18px 18px 12px;
     overflow:auto;
-    padding:16px 14px;
+    max-height:calc(84vh - 70px);
   }
 
   .handText{
     font-family:"Segoe Script","Bradley Hand","Comic Sans MS",cursive;
-    font-size:15.5px;
-    line-height:1.55;
+    font-size:16px;
+    line-height:1.6;
     color:#1f1f1f;
     white-space:pre-wrap;
   }
 
-  /* opened state */
-  .envelope.open .env-flap{
-    transform:rotateX(155deg);
+  /* Vintage photo strip bottom (a5,a6,a7) */
+  .vintageStrip{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    padding:16px 12px 18px;
   }
-  .envelope.open .paper{
-    opacity:1;
-    transform:translateY(-120px);
+  .vintage{
+    width:120px;
+    height:150px;
+    background:#f7f2ea;
+    border-radius:16px;
+    padding:10px 10px 18px;
+    box-shadow:0 16px 30px rgba(0,0,0,0.18);
+    border:1px solid rgba(0,0,0,0.05);
+    transform:rotate(var(--r));
+    position:relative;
+  }
+  .vintage img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:12px;
+    filter: sepia(0.22) contrast(1.02) saturate(0.95);
+  }
+  .vintage::after{
+    content:"";
+    position:absolute;
+    left:14px;
+    right:14px;
+    bottom:8px;
+    height:6px;
+    border-radius:999px;
+    background:rgba(0,0,0,0.06);
   }
 
-  /* small “pop” when opened */
-  .envelope.open{
-    animation:pop .35s ease;
+  /* SLIDE 3 placeholder */
+  .slide3Title{
+    text-align:center;
+    margin:0;
+    font-size:28px;
+    color:#fff;
+    text-shadow:0 10px 30px rgba(0,0,0,0.55);
   }
-  @keyframes pop{
-    0%{ transform:translateY(0) scale(1); }
-    60%{ transform:translateY(-6px) scale(1.02); }
-    100%{ transform:translateY(0) scale(1); }
+  .slide3Hint{
+    text-align:center;
+    color:rgba(255,255,255,0.88);
+    margin-top:14px;
+    font-weight:700;
   }
 </style>
 </head>
@@ -608,59 +679,81 @@
     </div>
   </div>
 
+  <!-- LETTER OVERLAY (BIG CARD) -->
+  <div id="letterOverlay" onclick="closeLetter()">
+    <div class="letterCard" onclick="event.stopPropagation()">
+      <div class="letterTopBar">
+        <h3>For Aaria 🤍</h3>
+        <button class="closeX" onclick="closeLetter()">✕</button>
+      </div>
+      <div class="letterBody">
+        <div class="handText" id="letterText"></div>
+
+        <div class="vintageStrip">
+          <div class="vintage" style="--r:-3deg"><img src="a5.png" alt=""></div>
+          <div class="vintage" style="--r:2deg"><img src="a6.png" alt=""></div>
+          <div class="vintage" style="--r:-1deg"><img src="a7.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="app">
     <div class="panel">
 
-      <!-- playlist button available on all slides -->
-      <div id="playlistBtn" onclick="openPlaylistPopup(event)">
-        <span class="envIcon">💌</span>
-      </div>
-
-      <!-- SLIDE 1 -->
+      <!-- SLIDE 1 (playlist btn only here) -->
       <div class="slide active" id="slide1">
+        <div id="playlistBtn" onclick="openPlaylistPopup(event)">
+          <span class="envIcon">💌</span>
+        </div>
+
         <h1 class="title">Happy Birthday Aaria 🤍</h1>
 
-        <div class="cakeWrap">
-          <div class="cake" id="cake">
-            <div class="sprinkle s1"></div>
-            <div class="sprinkle s2"></div>
-            <div class="sprinkle s3"></div>
-            <div class="sprinkle s4"></div>
-            <div class="sprinkle s5"></div>
+        <div class="contentRow">
+          <div class="centerCol">
+            <div class="cake" id="cake">
+              <div class="sprinkle s1"></div>
+              <div class="sprinkle s2"></div>
+              <div class="sprinkle s3"></div>
+              <div class="sprinkle s4"></div>
+              <div class="sprinkle s5"></div>
 
-            <div class="candles">
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
-              <div class="candle"><div class="flame"></div></div>
+              <div class="candles">
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+                <div class="candle"><div class="flame"></div></div>
+              </div>
+
+              <div class="smoke-wrap" id="smokeWrap"></div>
+
+              <div class="cake-photo">
+                <img src="wild.jpg" alt="">
+              </div>
+
+              <div class="name">Aaria</div>
             </div>
 
-            <div class="smoke-wrap" id="smokeWrap"></div>
+            <div id="wishMsg">Make a wish ✨</div>
 
-            <div class="cake-photo">
-              <img src="wild.jpg" alt="">
+            <div class="photoDecor">✦ memories ✦</div>
+
+            <div class="photos">
+              <img src="a1.png" onclick="openPopup(this.src)" alt="">
+              <img src="a2.png" onclick="openPopup(this.src)" alt="">
+              <img src="a3.png" onclick="openPopup(this.src)" alt="">
+              <img src="a4.png" onclick="openPopup(this.src)" alt="">
             </div>
-
-            <div class="name">Aaria</div>
           </div>
-        </div>
 
-        <div id="wishMsg">Make a wish ✨</div>
-
-        <div class="calendar">
-          <h3>8teen</h3>
-          <div class="days">
-            <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
-            <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
-            <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
-            <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day mark">26</div>
+          <div class="calendar">
+            <h3>8teen</h3>
+            <div class="days">
+              <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
+              <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
+              <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
+              <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day mark">26</div>
+            </div>
           </div>
-        </div>
-
-        <div class="photos">
-          <img src="a1.png" onclick="openPopup(this.src)" alt="">
-          <img src="a2.png" onclick="openPopup(this.src)" alt="">
-          <img src="a3.png" onclick="openPopup(this.src)" alt="">
-          <img src="a4.png" onclick="openPopup(this.src)" alt="">
         </div>
       </div>
 
@@ -670,24 +763,27 @@
         <p class="hint">Tap the envelope to open it ✉️</p>
 
         <div class="envelopeStage">
-          <div class="envelope" id="envelope" onclick="toggleLetter(event)">
+          <div class="envelope" id="envelope" onclick="openLetter(event)">
             <div class="env-base"></div>
+            <div class="env-dots"></div>
             <div class="env-flap"></div>
             <div class="env-pocket"></div>
             <div class="env-seal">❤</div>
-
-            <div class="paper" id="paper">
-              <div class="handText" id="letterText"></div>
-            </div>
           </div>
         </div>
+      </div>
+
+      <!-- SLIDE 3 (we'll build later) -->
+      <div class="slide" id="slide3">
+        <h2 class="slide3Title">Slide 3 (next part) ✨</h2>
+        <p class="slide3Hint">We’ll add more cute stuff here next.</p>
       </div>
 
     </div>
   </div>
 
-  <!-- ppt nav -->
-  <div class="nav">
+  <!-- nav only for slide2 & slide3 -->
+  <div class="nav hidden" id="nav">
     <button id="prevBtn" onclick="prevSlide()">⬅ Back</button>
     <button id="nextBtn" onclick="nextSlide()">Next ➜</button>
   </div>
@@ -698,7 +794,7 @@
   const $ = (id) => document.getElementById(id);
 
   let currentSlide = 1;
-  const totalSlides = 2;
+  const totalSlides = 3;
 
   const para = `Hey Aaria, Happy Birthday!! 🤍 Happy 18th!!
 
@@ -718,11 +814,10 @@ Happy Birthday once again, Aaria 🤍`;
     $("start").style.display = "none";
     $("app").style.display = "block";
     $("music").play().catch(()=>{});
-
     buildStars(75);
     startFloaties();
-    updateNav();
     $("letterText").textContent = para;
+    updateNav();
   }
 
   /* slides */
@@ -740,7 +835,15 @@ Happy Birthday once again, Aaria 🤍`;
   function prevSlide(){
     if(currentSlide > 1) showSlide(currentSlide-1);
   }
+
   function updateNav(){
+    // nav ONLY for slide 2 and 3
+    if(currentSlide === 1){
+      $("nav").classList.add("hidden");
+    }else{
+      $("nav").classList.remove("hidden");
+    }
+
     $("prevBtn").disabled = currentSlide === 1;
     $("nextBtn").disabled = currentSlide === totalSlides;
   }
@@ -846,7 +949,7 @@ Happy Birthday once again, Aaria 🤍`;
   function puffSmoke(){
     smokeWrap.style.display="block";
     smokeWrap.innerHTML="";
-    const positions=[32,78,124];
+    const positions=[36,92,148];
     for(let i=0;i<12;i++){
       const s=document.createElement("div");
       s.className="smoke";
@@ -862,14 +965,18 @@ Happy Birthday once again, Aaria 🤍`;
     },1800);
   }
 
-  /* envelope letter open */
-  function toggleLetter(e){
+  /* letter open */
+  function openLetter(e){
     e.stopPropagation();
-    $("envelope").classList.toggle("open");
+    $("letterOverlay").style.display="flex";
   }
+  function closeLetter(){
+    $("letterOverlay").style.display="none";
+  }
+
+  // start on slide 1
+  showSlide(1);
 </script>
 
 </body>
 </html>
-
-
