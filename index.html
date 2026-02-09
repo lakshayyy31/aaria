@@ -1,417 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Happy Birthday Aaria</title>
 
 <style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-family:'Segoe UI',sans-serif;
-  background:url("night.jpg") center/cover no-repeat fixed;
-  overflow:hidden;
-}
-
-/* ⭐ STARS OVERLAY */
-#stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-}
-.star{
-  position:absolute;
-  border-radius:50%;
-  background:white;
-  animation:twinkle 2.2s ease-in-out infinite;
-  box-shadow:0 0 12px rgba(255,255,255,0.9),
-             0 0 22px rgba(255,255,255,0.6),
-             0 0 40px rgba(255,255,255,0.4);
-}
-@keyframes twinkle{
-  0%,100%{opacity:0.25; transform:scale(0.8)}
-  50%{opacity:1; transform:scale(1.8)}
-}
-
-/* 💖 FLOATING HEARTS + SPARKLES */
-.floaty{
-  position:fixed;
-  bottom:-20px;
-  pointer-events:none;
-  z-index:2;
-  opacity:0.9;
-  animation:floatUp linear forwards;
-}
-@keyframes floatUp{
-  to{
-    transform:translateY(-115vh) translateX(var(--drift)) rotate(var(--rot));
-    opacity:0;
+  body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Segoe UI',sans-serif;
+    background:url("night.jpg") center/cover no-repeat fixed;
+    overflow:hidden;
   }
-}
 
-/* START SCREEN (switzerland bg) */
-#start{
-  position:fixed;
-  inset:0;
-  background:url("switzerland.jpg") center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:20;
-}
-#start::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-}
-#start button{
-  position:relative;
-  font-size:24px;
-  padding:18px 40px;
-  border:none;
-  border-radius:40px;
-  cursor:pointer;
-  box-shadow:0 12px 30px rgba(0,0,0,0.35);
-}
+  /* ⭐ STARS OVERLAY */
+  #stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+  }
+  .star{
+    position:absolute;
+    border-radius:50%;
+    background:white;
+    animation:twinkle 2.2s ease-in-out infinite;
+    box-shadow:0 0 12px rgba(255,255,255,0.9),
+               0 0 22px rgba(255,255,255,0.6),
+               0 0 40px rgba(255,255,255,0.4);
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:0.25; transform:scale(0.8)}
+    50%{opacity:1; transform:scale(1.8)}
+  }
 
-/* MAIN CARD (GLASS) */
-#main{
-  display:none;
-  position:relative;
-  border-radius:30px;
-  padding:60px 55px 220px;
-  width:340px;
-  text-align:center;
+  /* 💖 FLOATING HEARTS + SPARKLES */
+  .floaty{
+    position:fixed;
+    bottom:-20px;
+    pointer-events:none;
+    z-index:2;
+    opacity:0.9;
+    animation:floatUp linear forwards;
+  }
+  @keyframes floatUp{
+    to{
+      transform:translateY(-115vh) translateX(var(--drift)) rotate(var(--rot));
+      opacity:0;
+    }
+  }
 
-  background:rgba(255,255,255,0.18);
-  border:1px solid rgba(255,255,255,0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:0 18px 45px rgba(0,0,0,0.35);
+  /* START SCREEN */
+  #start{
+    position:fixed;
+    inset:0;
+    background:url("switzerland.jpg") center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+  }
+  #start::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.45);
+  }
+  #start button{
+    position:relative;
+    font-size:24px;
+    padding:18px 40px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  }
 
-  z-index:5;
-}
+  /* MAIN CARD (GLASS) */
+  #main{
+    display:none;
+    position:relative;
+    border-radius:30px;
+    padding:60px 55px 220px;
+    width:340px;
+    text-align:center;
 
-/* TITLE */
-h1{
-  margin:0 0 55px;
-  font-size:26px;
-  color:#fff;
-  text-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
+    background:rgba(255,255,255,0.18);
+    border:1px solid rgba(255,255,255,0.35);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:0 18px 45px rgba(0,0,0,0.35);
 
-/* CAKE (GLOW ANIMATION) */
-.cake{
-  width:220px;
-  height:140px;
-  background:#f6b1c3;
-  border-radius:22px;
-  position:relative;
-  margin:0 auto;
-  cursor:pointer;
-  animation:cakeGlow 2.8s ease-in-out infinite;
-}
-@keyframes cakeGlow{
-  0%,100%{ box-shadow:0 12px 25px rgba(0,0,0,0.25), 0 0 0 rgba(255,183,213,0); }
-  50%{ box-shadow:0 16px 35px rgba(0,0,0,0.25), 0 0 26px rgba(255,183,213,0.55); }
-}
+    z-index:5;
+  }
 
-/* ICING */
-.cake::before{
-  content:"";
-  position:absolute;
-  top:-18px;
-  left:0;
-  width:100%;
-  height:28px;
-  background:#ffd6e0;
-  border-radius:22px 22px 14px 14px;
-}
+  /* TITLE */
+  h1{
+    margin:0 0 55px;
+    font-size:26px;
+    color:#fff;
+    text-shadow:0 10px 30px rgba(0,0,0,0.5);
+  }
 
-/* PHOTO ON CAKE */
-.cake-photo{
-  position:absolute;
-  top:32px;
-  left:50%;
-  transform:translateX(-50%);
-  width:75px;
-  height:75px;
-  border-radius:14px;
-  overflow:hidden;
-  border:3px solid rgba(255,255,255,0.95);
-  box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-.cake-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+  /* CAKE */
+  .cake{
+    width:220px;
+    height:140px;
+    background:#f6b1c3;
+    border-radius:22px;
+    position:relative;
+    margin:0 auto;
+    cursor:pointer;
+    animation:cakeGlow 2.8s ease-in-out infinite;
+  }
+  @keyframes cakeGlow{
+    0%,100%{ box-shadow:0 12px 25px rgba(0,0,0,0.25), 0 0 0 rgba(255,183,213,0); }
+    50%{ box-shadow:0 16px 35px rgba(0,0,0,0.25), 0 0 26px rgba(255,183,213,0.55); }
+  }
+  .cake::before{
+    content:"";
+    position:absolute;
+    top:-18px;
+    left:0;
+    width:100%;
+    height:28px;
+    background:#ffd6e0;
+    border-radius:22px 22px 14px 14px;
+  }
 
-/* SPRINKLES */
-.sprinkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-}
-.s1{top:14px; left:30px; background:#ff6f91}
-.s2{top:22px; left:80px; background:#ffc75f}
-.s3{top:15px; left:130px; background:#845ec2}
-.s4{top:24px; left:170px; background:#4d96ff}
-.s5{top:10px; left:105px; background:#00c9a7}
+  /* PHOTO ON CAKE */
+  .cake-photo{
+    position:absolute;
+    top:32px;
+    left:50%;
+    transform:translateX(-50%);
+    width:75px;
+    height:75px;
+    border-radius:14px;
+    overflow:hidden;
+    border:3px solid rgba(255,255,255,0.95);
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
+  }
+  .cake-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
 
-/* NAME ON CAKE */
-.name{
-  position:absolute;
-  bottom:10px;
-  width:100%;
-  text-align:center;
-  font-family:'Comic Sans MS', cursive;
-  font-size:22px;
-  color:#1b1b1b;
-}
+  /* SPRINKLES */
+  .sprinkle{ position:absolute; width:6px; height:6px; border-radius:50%; }
+  .s1{top:14px; left:30px; background:#ff6f91}
+  .s2{top:22px; left:80px; background:#ffc75f}
+  .s3{top:15px; left:130px; background:#845ec2}
+  .s4{top:24px; left:170px; background:#4d96ff}
+  .s5{top:10px; left:105px; background:#00c9a7}
 
-/* CANDLES */
-.candles{
-  position:absolute;
-  top:-42px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:32px;
-  pointer-events:none;
-}
-.candle{
-  width:10px;
-  height:36px;
-  background:white;
-  border-radius:3px;
-  position:relative;
-}
-.flame{
-  width:12px;
-  height:12px;
-  background:orange;
-  border-radius:50%;
-  position:absolute;
-  top:-12px;
-  left:-1px;
-  animation:flicker .15s infinite alternate;
-}
-@keyframes flicker{
-  from{transform:scale(1)}
-  to{transform:scale(1.25)}
-}
+  /* NAME ON CAKE */
+  .name{
+    position:absolute;
+    bottom:10px;
+    width:100%;
+    text-align:center;
+    font-family:'Comic Sans MS', cursive;
+    font-size:22px;
+    color:#1b1b1b;
+  }
 
-/* SMOKE */
-.smoke-wrap{
-  position:absolute;
-  top:-55px;
-  left:50%;
-  transform:translateX(-50%);
-  width:150px;
-  height:60px;
-  pointer-events:none;
-  display:none;
-}
-.smoke{
-  position:absolute;
-  width:14px;
-  height:14px;
-  border-radius:50%;
-  background:rgba(210,210,210,0.9);
-  animation:smokeUp 1.8s ease-out forwards;
-}
-@keyframes smokeUp{
-  0%{ transform:translateY(18px) scale(0.7); opacity:0.85; }
-  100%{ transform:translateY(-40px) scale(1.5); opacity:0; }
-}
+  /* CANDLES */
+  .candles{
+    position:absolute;
+    top:-42px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:32px;
+    pointer-events:none;
+  }
+  .candle{
+    width:10px;
+    height:36px;
+    background:white;
+    border-radius:3px;
+    position:relative;
+  }
+  .flame{
+    width:12px;
+    height:12px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-12px;
+    left:-1px;
+    animation:flicker .15s infinite alternate;
+  }
+  @keyframes flicker{ from{transform:scale(1)} to{transform:scale(1.25)} }
 
-/* WISH MESSAGE */
-#wishMsg{
-  margin-top:14px;
-  font-size:16px;
-  font-weight:700;
-  color:#fff;
-  display:none;
-  text-shadow:0 0 12px rgba(255,255,255,0.9),
-              0 0 22px rgba(255,160,200,0.9);
-}
+  /* SMOKE */
+  .smoke-wrap{
+    position:absolute;
+    top:-55px;
+    left:50%;
+    transform:translateX(-50%);
+    width:150px;
+    height:60px;
+    pointer-events:none;
+    display:none;
+  }
+  .smoke{
+    position:absolute;
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    background:rgba(210,210,210,0.9);
+    animation:smokeUp 1.8s ease-out forwards;
+  }
+  @keyframes smokeUp{
+    0%{ transform:translateY(18px) scale(0.7); opacity:0.85; }
+    100%{ transform:translateY(-40px) scale(1.5); opacity:0; }
+  }
 
-/* CALENDAR */
-.calendar{
-  position:absolute;
-  right:-155px;
-  top:85px;
-  width:140px;
-  background:rgba(255,255,255,0.92);
-  border-radius:16px;
-  padding:10px;
-  font-size:12px;
-}
-.calendar h3{margin:5px 0}
-.days{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:4px;
-}
-.day{padding:4px}
-.mark{ background:pink; border-radius:50%; }
+  /* WISH MESSAGE */
+  #wishMsg{
+    margin-top:14px;
+    font-size:16px;
+    font-weight:700;
+    color:#fff;
+    display:none;
+    text-shadow:0 0 12px rgba(255,255,255,0.9),
+                0 0 22px rgba(255,160,200,0.9);
+  }
 
-/* PHOTOS */
-.photos{
-  position:absolute;
-  bottom:28px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:12px;
-}
+  /* CALENDAR */
+  .calendar{
+    position:absolute;
+    right:-155px;
+    top:85px;
+    width:140px;
+    background:rgba(255,255,255,0.92);
+    border-radius:16px;
+    padding:10px;
+    font-size:12px;
+  }
+  .calendar h3{margin:5px 0}
+  .days{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:4px;
+  }
+  .day{padding:4px}
+  .mark{ background:pink; border-radius:50%; }
 
-/* ✨ DECORATION ABOVE PHOTOS */
-.photos::before{
-  content:"✦ ✧ ✦ ✧ ✦";
-  position:absolute;
-  top:-28px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:18px;
-  color:white;
-  opacity:0.85;
-  text-shadow:0 0 14px rgba(255,255,255,0.95);
-}
+  /* PHOTOS + DECOR */
+  .photos{
+    position:absolute;
+    bottom:28px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+  }
+  .photos::before{
+    content:"✦ ✧ ✦ ✧ ✦";
+    position:absolute;
+    top:-28px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:18px;
+    color:white;
+    opacity:0.85;
+    text-shadow:0 0 14px rgba(255,255,255,0.95);
+  }
+  .photos::after{
+    content:"♡ ♡ ♡";
+    position:absolute;
+    bottom:-24px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:18px;
+    color:pink;
+    opacity:0.95;
+    text-shadow:0 0 14px rgba(255,150,200,0.9);
+  }
+  .photos img{
+    width:65px;
+    height:85px;
+    object-fit:cover;
+    border-radius:10px;
+    border:2px solid rgba(255,255,255,0.9);
+    cursor:pointer;
+    transition:0.2s;
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+  }
+  .photos img:hover{ transform:scale(1.1); }
 
-/* 💖 DECORATION BELOW PHOTOS */
-.photos::after{
-  content:"♡ ♡ ♡";
-  position:absolute;
-  bottom:-24px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:18px;
-  color:pink;
-  opacity:0.95;
-  text-shadow:0 0 14px rgba(255,150,200,0.9);
-}
+  /* FULLSCREEN PHOTO POPUP */
+  #popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:50;
+  }
+  #popup img{
+    width:80%;
+    max-width:350px;
+    border-radius:18px;
+    border:4px solid white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  }
 
-.photos img{
-  width:65px;
-  height:85px;
-  object-fit:cover;
-  border-radius:10px;
-  border:2px solid rgba(255,255,255,0.9);
-  cursor:pointer;
-  transition:0.2s;
-  box-shadow:0 10px 22px rgba(0,0,0,0.25);
-}
-.photos img:hover{ transform:scale(1.1); }
+  /* CONFETTI */
+  .confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    animation:fall 2s linear forwards;
+    z-index:30;
+  }
+  @keyframes fall{ to{transform:translateY(100vh) rotate(360deg)} }
 
-/* FULLSCREEN PHOTO POPUP */
-#popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:50;
-}
-#popup img{
-  width:80%;
-  max-width:350px;
-  border-radius:18px;
-  border:4px solid white;
-  box-shadow:0 10px 25px rgba(0,0,0,0.5);
-}
+  /* 💌 ENVELOPE BUTTON (playlist) */
+  #envelopeBtn{
+    position:absolute;
+    top:18px;
+    right:18px;
+    width:56px;
+    height:44px;
+    background:rgba(255,255,255,0.95);
+    border-radius:14px;
+    border:2px solid #ff8fab;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+    transition:0.2s;
+  }
+  #envelopeBtn:hover{ transform:scale(1.08); }
+  .envIcon{
+    font-size:22px;
+    display:inline-block;
+    animation:envWiggle 2.8s infinite;
+    transform-origin:50% 60%;
+  }
+  @keyframes envWiggle{
+    0%, 86%, 100% { transform:rotate(0deg) translateX(0); }
+    88% { transform:rotate(-7deg) translateX(-1px); }
+    90% { transform:rotate(7deg) translateX(1px); }
+    92% { transform:rotate(-7deg) translateX(-1px); }
+    94% { transform:rotate(7deg) translateX(1px); }
+  }
 
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  animation:fall 2s linear forwards;
-  z-index:30;
-}
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg)}
-}
+  /* ✉️ LETTER BUTTON (new) */
+  #letterBtn{
+    position:absolute;
+    top:18px;
+    left:18px;
+    width:56px;
+    height:44px;
+    background:rgba(255,255,255,0.95);
+    border-radius:14px;
+    border:2px solid #b7f0ff;
+    cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+    transition:0.2s;
+  }
+  #letterBtn:hover{ transform:scale(1.08); }
+  .letterIcon{
+    font-size:20px;
+    display:inline-block;
+    animation:letterBob 2.6s ease-in-out infinite;
+  }
+  @keyframes letterBob{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-3px); }
+  }
 
-/* 💌 ENVELOPE BUTTON */
-#envelopeBtn{
-  position:absolute;
-  top:18px;
-  right:18px;
-  width:56px;
-  height:44px;
-  background:rgba(255,255,255,0.95);
-  border-radius:14px;
-  border:2px solid #ff8fab;
-  cursor:pointer;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  box-shadow:0 10px 22px rgba(0,0,0,0.25);
-  transition:0.2s;
-}
-#envelopeBtn:hover{ transform:scale(1.08); }
+  /* PLAYLIST POPUP */
+  #playlistPopup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:60;
+  }
+  .popupBox{
+    width:300px;
+    background:white;
+    border-radius:22px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .popupBox h2{ margin:0; font-size:20px; }
+  .popupBox p{ font-size:14px; color:#555; margin-top:10px; }
+  .popupBox a{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 18px;
+    border-radius:25px;
+    background:#ff4d6d;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+  }
+  .closeBtn{
+    margin-top:15px;
+    display:block;
+    font-size:13px;
+    color:#777;
+    cursor:pointer;
+  }
 
-.envIcon{
-  font-size:22px;
-  display:inline-block;
-  animation:envWiggle 2.8s infinite;
-  transform-origin:50% 60%;
-}
-@keyframes envWiggle{
-  0%, 86%, 100% { transform:rotate(0deg) translateX(0); }
-  88% { transform:rotate(-7deg) translateX(-1px); }
-  90% { transform:rotate(7deg) translateX(1px); }
-  92% { transform:rotate(-7deg) translateX(-1px); }
-  94% { transform:rotate(7deg) translateX(1px); }
-}
+  /* ✨ NEW: LETTER PAGE OVERLAY */
+  #letterPage{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:80;
+    padding:18px;
+  }
 
-/* PLAYLIST POPUP */
-#playlistPopup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:60;
-}
-.popupBox{
-  width:300px;
-  background:white;
-  border-radius:22px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-.popupBox h2{ margin:0; font-size:20px; }
-.popupBox p{ font-size:14px; color:#555; margin-top:10px; }
-.popupBox a{
-  display:inline-block;
-  margin-top:18px;
-  padding:12px 18px;
-  border-radius:25px;
-  background:#ff4d6d;
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-}
-.closeBtn{
-  margin-top:15px;
-  display:block;
-  font-size:13px;
-  color:#777;
-  cursor:pointer;
-}
+  .letterWrap{
+    width:min(520px, 92vw);
+    border-radius:22px;
+    position:relative;
+    padding:22px;
+    box-shadow:0 18px 50px rgba(0,0,0,0.45);
+  }
+
+  /* paper vibe + texture (no extra images needed) */
+  .paper{
+    border-radius:18px;
+    padding:22px 20px;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(255,255,255,0.85), rgba(255,255,255,0.65) 55%, rgba(255,255,255,0.6)),
+      linear-gradient(180deg, rgba(255,244,230,0.95), rgba(255,244,230,0.88)),
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 6px);
+    border:1px solid rgba(255,255,255,0.55);
+  }
+
+  .paperTop{
+    height:10px;
+    border-radius:18px 18px 10px 10px;
+    background:rgba(255,255,255,0.65);
+    margin-bottom:12px;
+  }
+
+  .handText{
+    font-family: "Segoe Script", "Bradley Hand", "Comic Sans MS", cursive;
+    font-size:16px;
+    line-height:1.55;
+    color:#1f1f1f;
+    white-space:pre-wrap;
+  }
+
+  .letterClose{
+    position:absolute;
+    top:10px;
+    right:12px;
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:rgba(255,255,255,0.9);
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+    font-size:18px;
+  }
 </style>
 </head>
 
@@ -440,8 +510,25 @@ h1{
   </div>
 </div>
 
+<!-- ✨ LETTER PAGE -->
+<div id="letterPage" onclick="closeLetterPage()">
+  <div class="letterWrap" onclick="event.stopPropagation()">
+    <button class="letterClose" onclick="closeLetterPage()">✕</button>
+    <div class="paper">
+      <div class="paperTop"></div>
+      <div class="handText" id="letterText"></div>
+    </div>
+  </div>
+</div>
+
 <div id="main">
 
+  <!-- NEW letter button -->
+  <div id="letterBtn" onclick="openLetterPage(event)">
+    <span class="letterIcon">📝</span>
+  </div>
+
+  <!-- playlist envelope -->
   <div id="envelopeBtn" onclick="openPlaylistPopup(event)">
     <span class="envIcon">💌</span>
   </div>
@@ -464,7 +551,7 @@ h1{
     <div class="smoke-wrap" id="smokeWrap"></div>
 
     <div class="cake-photo">
-      <img src="wild.jpg">
+      <img src="wild.jpg" alt="">
     </div>
 
     <div class="name">Aaria</div>
@@ -487,10 +574,10 @@ h1{
   </div>
 
   <div class="photos">
-    <img src="a1.png" onclick="openPopup(this.src)">
-    <img src="a2.png" onclick="openPopup(this.src)">
-    <img src="a3.png" onclick="openPopup(this.src)">
-    <img src="a4.png" onclick="openPopup(this.src)">
+    <img src="a1.png" onclick="openPopup(this.src)" alt="">
+    <img src="a2.png" onclick="openPopup(this.src)" alt="">
+    <img src="a3.png" onclick="openPopup(this.src)" alt="">
+    <img src="a4.png" onclick="openPopup(this.src)" alt="">
   </div>
 </div>
 
@@ -498,7 +585,7 @@ h1{
 
 <script>
 function start(){
-  document.getElementById("start").style.display="none";
+  document.getElementByIda("start").style.display="none";
   document.getElementById("main").style.display="block";
   document.getElementById("music").play();
 
@@ -506,13 +593,24 @@ function start(){
   startFloaties();
 }
 
-/* CONFETTI ON ANY CLICK ANYWHERE */
+/* 🔥 fix: typo protection */
+function documentGet(id){ return document.getElementById(id); }
+function safeStart(){
+  documentGet("start").style.display="none";
+  documentGet("main").style.display="block";
+  documentGet("music").play();
+  buildStars(75);
+  startFloaties();
+}
+/* overwrite start to safe version */
+start = safeStart;
+
+/* CONFETTI ON ANY CLICK ANYWHERE (after start) */
 document.addEventListener("click", () => {
-  if(document.getElementById("start").style.display !== "none") return;
+  if(documentGet("start").style.display !== "none") return;
   confetti();
 });
 
-/* CONFETTI */
 function confetti(){
   for(let i=0;i<26;i++){
     let c=document.createElement("div");
@@ -527,25 +625,25 @@ function confetti(){
 /* PHOTO POPUP */
 function openPopup(src){
   event.stopPropagation();
-  document.getElementById("popup").style.display="flex";
-  document.getElementById("popupImg").src = src;
+  documentGet("popup").style.display="flex";
+  documentGet("popupImg").src = src;
 }
 function closePopup(){
-  document.getElementById("popup").style.display="none";
+  documentGet("popup").style.display="none";
 }
 
 /* PLAYLIST POPUP */
 function openPlaylistPopup(e){
   e.stopPropagation();
-  document.getElementById("playlistPopup").style.display="flex";
+  documentGet("playlistPopup").style.display="flex";
 }
 function closePlaylistPopup(){
-  document.getElementById("playlistPopup").style.display="none";
+  documentGet("playlistPopup").style.display="none";
 }
 
-/* STARS */
+/* ⭐ STARS */
 function buildStars(n){
-  const stars=document.getElementById("stars");
+  const stars=documentGet("stars");
   stars.innerHTML="";
   for(let i=0;i<n;i++){
     const s=document.createElement("div");
@@ -560,7 +658,7 @@ function buildStars(n){
   }
 }
 
-/* FLOATING HEARTS */
+/* 💖 FLOATIES */
 let floatyTimer=null;
 function startFloaties(){
   if(floatyTimer) clearInterval(floatyTimer);
@@ -582,10 +680,10 @@ function makeFloaty(type){
   setTimeout(()=>el.remove(),9000);
 }
 
-/* BLOW CANDLES + SMOKE */
-const cakeEl=document.getElementById("cake");
-const wishMsg=document.getElementById("wishMsg");
-const smokeWrap=document.getElementById("smokeWrap");
+/* 🕯️ BLOW CANDLES + SMOKE */
+const cakeEl=documentGet("cake");
+const wishMsg=documentGet("wishMsg");
+const smokeWrap=documentGet("smokeWrap");
 let candlesOut=false;
 
 cakeEl.addEventListener("click",(e)=>{
@@ -625,6 +723,30 @@ function puffSmoke(){
     smokeWrap.style.display="none";
     smokeWrap.innerHTML="";
   },1800);
+}
+
+/* ✨ LETTER PAGE */
+const para = `Hey Aaria, Happy Birthday!! 🤍 Happy 18th!!
+
+I really hope you like this little website I made for you. It honestly took me a lot of time because all of this was completely new to me — I had no idea how any of it worked at first. But I still spent nights figuring things out, fixing mistakes, and trying to make it look perfect.
+
+And I’m really sorry for putting your pictures on the page. I genuinely didn’t have many photos of you, so I had no other choice. I hope you don’t mind.
+
+I just want you to enjoy your birthday to the fullest — laugh a lot, make memories, and have the kind of day you’ll always remember.
+
+You’re honestly one of the most amazing people I’ve met, and I really admire you a lot. You have such a great vibe, and you’re genuinely fun to talk to. Your humour, your taste in movies and music… everything about you is honestly really special.
+
+I hope you have the best year ahead, and I really wish nothing but happiness for you.
+
+Happy Birthday once again, Aaria 🤍`;
+
+function openLetterPage(e){
+  e.stopPropagation();
+  documentGet("letterText").textContent = para;
+  documentGet("letterPage").style.display="flex";
+}
+function closeLetterPage(){
+  documentGet("letterPage").style.display="none";
 }
 </script>
 
