@@ -6,636 +6,606 @@
 <title>Happy Birthday Aaria</title>
 
 <style>
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  height:100vh;
-  font-family:'Segoe UI',sans-serif;
-  background:url("night.jpg") center/cover no-repeat fixed;
-  overflow:hidden;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-/* ---------- START SCREEN ---------- */
-#start{
-  position:fixed;
-  inset:0;
-  background:url("switzerland.jpg") center/cover no-repeat;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:50;
-}
-#start::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:rgba(0,0,0,0.55);
-}
-#start button{
-  position:relative;
-  font-size:22px;
-  padding:16px 38px;
-  border:none;
-  border-radius:40px;
-  cursor:pointer;
-  background:rgba(255,255,255,0.9);
-  font-weight:700;
-  box-shadow:0 12px 35px rgba(0,0,0,0.35);
-  transition:.2s;
-}
-#start button:hover{
-  transform:scale(1.05);
-}
-
-/* ---------- STARS ---------- */
-#stars{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:1;
-}
-.star{
-  position:absolute;
-  border-radius:50%;
-  background:white;
-  animation:twinkle 2.4s ease-in-out infinite;
-  box-shadow:0 0 12px rgba(255,255,255,0.9),
-             0 0 22px rgba(255,255,255,0.6),
-             0 0 40px rgba(255,255,255,0.4);
-}
-@keyframes twinkle{
-  0%,100%{opacity:0.25; transform:scale(0.7)}
-  50%{opacity:1; transform:scale(1.8)}
-}
-
-/* ---------- FLOATING HEARTS ---------- */
-.floaty{
-  position:fixed;
-  bottom:-20px;
-  pointer-events:none;
-  z-index:2;
-  opacity:0.9;
-  animation:floatUp linear forwards;
-}
-@keyframes floatUp{
-  to{
-    transform:translateY(-115vh) translateX(var(--drift)) rotate(var(--rot));
-    opacity:0;
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    height:100vh;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:url("night.jpg") center/cover no-repeat fixed;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
   }
-}
 
-/* ---------- SLIDES WRAPPER ---------- */
-#slides{
-  width:100%;
-  height:100%;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  position:relative;
-  z-index:5;
-}
-.panel{
-  width:min(980px, 92vw);
-  height:min(640px, 88vh);
-  border-radius:28px;
-  padding:35px;
-  position:relative;
+  /* ---------- START SCREEN ---------- */
+  #start{
+    position:fixed;
+    inset:0;
+    background:url("switzerland.jpg") center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:200;
+  }
+  #start::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+  }
+  #start button{
+    position:relative;
+    font-size:22px;
+    padding:16px 40px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    background:rgba(255,255,255,0.92);
+    font-weight:800;
+    box-shadow:0 14px 40px rgba(0,0,0,0.45);
+    transition:.2s;
+  }
+  #start button:hover{transform:scale(1.05);}
 
-  background:rgba(255,255,255,0.15);
-  border:1px solid rgba(255,255,255,0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow:0 18px 55px rgba(0,0,0,0.40);
-  overflow:hidden;
-}
+  /* ---------- STARS (LIGHT + FAST) ---------- */
+  #stars{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+  }
+  .star{
+    position:absolute;
+    border-radius:50%;
+    background:white;
+    opacity:.9;
+    animation:twinkle 2.6s ease-in-out infinite;
+    box-shadow:0 0 10px rgba(255,255,255,.9), 0 0 18px rgba(255,255,255,.5);
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.2; transform:scale(.8)}
+    50%{opacity:1; transform:scale(1.7)}
+  }
 
-.slide{
-  display:none;
-  width:100%;
-  height:100%;
-  position:relative;
-}
-.slide.active{display:block;}
+  /* ---------- FLOATING HEARTS/GLITTER ---------- */
+  .floaty{
+    position:fixed;
+    bottom:-24px;
+    pointer-events:none;
+    z-index:2;
+    opacity:.9;
+    animation:floatUp linear forwards;
+    filter:drop-shadow(0 8px 14px rgba(0,0,0,.25));
+  }
+  @keyframes floatUp{
+    to{
+      transform:translateY(-115vh) translateX(var(--drift)) rotate(var(--rot));
+      opacity:0;
+    }
+  }
 
-/* ---------- NAV BUTTONS ---------- */
-.navBtns{
-  position:absolute;
-  bottom:18px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:14px;
-  z-index:10;
-}
-.navBtns button{
-  padding:10px 18px;
-  border:none;
-  border-radius:25px;
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
-  background:rgba(255,255,255,0.85);
-  box-shadow:0 10px 22px rgba(0,0,0,0.3);
-}
-.navBtns button:hover{transform:scale(1.05);}
+  /* ---------- SLIDES ---------- */
+  #slides{
+    width:100%;
+    height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    z-index:5;
+  }
 
-/* ---------- SLIDE 1 TITLE ---------- */
-.mainTitle{
-  text-align:center;
-  font-size:38px;
-  font-weight:800;
-  margin-top:8px;
-  color:white;
-  text-shadow:0 10px 30px rgba(0,0,0,0.55);
-  letter-spacing:0.5px;
-}
-.subGlow{
-  text-align:center;
-  font-size:14px;
-  color:rgba(255,255,255,0.85);
-  margin-top:8px;
-  text-shadow:0 0 12px rgba(255,255,255,0.7);
-}
+  .panel{
+    width:min(980px, 92vw);
+    height:min(680px, 90vh);
+    border-radius:28px;
+    padding:26px;
+    position:relative;
 
-/* ---------- ENVELOPE BUTTON (SLIDE 1 ONLY) ---------- */
-#envelopeBtn{
-  position:absolute;
-  top:18px;
-  right:18px;
-  width:70px;
-  height:55px;
-  background:rgba(255,255,255,0.95);
-  border-radius:16px;
-  border:2px solid #ff8fab;
-  cursor:pointer;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:28px;
-  box-shadow:0 10px 22px rgba(0,0,0,0.25);
-  transition:0.2s;
-  animation:envelopeShake 3s infinite;
-  z-index:15;
-}
-#envelopeBtn:hover{
-  transform:scale(1.1);
-  animation:none;
-}
-@keyframes envelopeShake{
-  0%,100%{transform:rotate(0deg);}
-  90%{transform:rotate(0deg);}
-  92%{transform:rotate(-6deg);}
-  94%{transform:rotate(6deg);}
-  96%{transform:rotate(-6deg);}
-  98%{transform:rotate(6deg);}
-}
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.32);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:0 18px 55px rgba(0,0,0,0.42);
+    overflow:hidden;
+  }
 
-/* ---------- CAKE ---------- */
-.cakeWrap{
-  margin-top:50px; /* more gap */
-  display:flex;
-  justify-content:center;
-}
+  .slide{display:none; width:100%; height:100%; position:relative;}
+  .slide.active{display:block;}
 
-.cake{
-  width:250px;
-  height:150px;
-  background:#f6b1c3;
-  border-radius:26px;
-  position:relative;
-  cursor:pointer;
-  animation:cakeGlow 2.8s ease-in-out infinite;
-}
-@keyframes cakeGlow{
-  0%,100%{ box-shadow:0 14px 30px rgba(0,0,0,0.25), 0 0 0 rgba(255,183,213,0); }
-  50%{ box-shadow:0 18px 40px rgba(0,0,0,0.25), 0 0 30px rgba(255,183,213,0.55); }
-}
+  /* ---------- NAV BUTTONS (ONLY SLIDE 2) ---------- */
+  .navBtns{
+    position:absolute;
+    bottom:14px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+    z-index:50;
+  }
+  .navBtns button{
+    padding:10px 18px;
+    border:none;
+    border-radius:25px;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    background:rgba(255,255,255,0.9);
+    box-shadow:0 10px 22px rgba(0,0,0,0.32);
+    transition:.15s;
+  }
+  .navBtns button:hover{transform:scale(1.05);}
 
-.cake::before{
-  content:"";
-  position:absolute;
-  top:-20px;
-  left:0;
-  width:100%;
-  height:32px;
-  background:#ffd6e0;
-  border-radius:26px 26px 16px 16px;
-}
+  /* ---------- SLIDE 1 TITLE ---------- */
+  .mainTitle{
+    text-align:center;
+    font-size:38px;
+    font-weight:900;
+    margin-top:4px;
+    color:white;
+    text-shadow:0 12px 30px rgba(0,0,0,0.55);
+    letter-spacing:.4px;
+  }
+  .subGlow{
+    text-align:center;
+    font-size:14px;
+    color:rgba(255,255,255,0.85);
+    margin-top:10px;
+    text-shadow:0 0 12px rgba(255,255,255,0.7);
+    font-weight:700;
+  }
 
-.cake-photo{
-  position:absolute;
-  top:36px;
-  left:50%;
-  transform:translateX(-50%);
-  width:85px;
-  height:85px;
-  border-radius:18px;
-  overflow:hidden;
-  border:3px solid rgba(255,255,255,0.95);
-  box-shadow:0 6px 14px rgba(0,0,0,0.35);
-}
-.cake-photo img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
+  /* ---------- SPOTIFY ENVELOPE BUTTON (SLIDE 1) ---------- */
+  #envelopeBtn{
+    position:absolute;
+    top:16px;
+    right:16px;
+    width:76px;
+    height:60px;
+    border-radius:18px;
+    cursor:pointer;
+    z-index:40;
 
-/* SPRINKLES */
-.sprinkle{
-  position:absolute;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-}
-.s1{top:14px; left:25px; background:#ff6f91}
-.s2{top:22px; left:60px; background:#ffc75f}
-.s3{top:16px; left:95px; background:#845ec2}
-.s4{top:24px; left:140px; background:#4d96ff}
-.s5{top:12px; left:175px; background:#00c9a7}
-.s6{top:18px; left:210px; background:#ff9671}
-.s7{top:8px; left:120px; background:#f9f871}
-.s8{top:28px; left:110px; background:#c34a36}
-.s9{top:20px; left:165px; background:#b0a8b9}
-.s10{top:10px; left:80px; background:#0081cf}
+    background:linear-gradient(145deg, rgba(255,255,255,.95), rgba(255,240,247,.95));
+    border:2px solid rgba(255,120,170,.8);
+    box-shadow:0 12px 26px rgba(0,0,0,.25);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
 
-/* NAME */
-.name{
-  position:absolute;
-  bottom:12px;
-  width:100%;
-  text-align:center;
-  font-family:'Comic Sans MS', cursive;
-  font-size:24px;
-  color:#1b1b1b;
-}
+    animation:envelopeShake 3s infinite;
+  }
+  #envelopeBtn:hover{transform:scale(1.08); animation:none;}
+  @keyframes envelopeShake{
+    0%,88%,100%{transform:rotate(0deg);}
+    90%{transform:rotate(-6deg);}
+    92%{transform:rotate(6deg);}
+    94%{transform:rotate(-6deg);}
+    96%{transform:rotate(6deg);}
+  }
 
-/* CANDLES */
-.candles{
-  position:absolute;
-  top:-45px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:36px;
-  pointer-events:none;
-}
-.candle{
-  width:10px;
-  height:40px;
-  background:white;
-  border-radius:3px;
-  position:relative;
-}
-.flame{
-  width:13px;
-  height:13px;
-  background:orange;
-  border-radius:50%;
-  position:absolute;
-  top:-13px;
-  left:-1.5px;
-  animation:flicker .15s infinite alternate;
-}
-@keyframes flicker{
-  from{transform:scale(1)}
-  to{transform:scale(1.25)}
-}
+  /* ---------- CAKE AREA ---------- */
+  .cakeWrap{
+    margin-top:42px; /* more gap so candles don’t collide with title */
+    display:flex;
+    justify-content:center;
+  }
 
-/* SMOKE */
-.smoke-wrap{
-  position:absolute;
-  top:-65px;
-  left:50%;
-  transform:translateX(-50%);
-  width:160px;
-  height:70px;
-  pointer-events:none;
-  display:none;
-}
-.smoke{
-  position:absolute;
-  width:16px;
-  height:16px;
-  border-radius:50%;
-  background:rgba(220,220,220,0.9);
-  animation:smokeUp 1.8s ease-out forwards;
-}
-@keyframes smokeUp{
-  0%{ transform:translateY(20px) scale(0.7); opacity:0.85; }
-  100%{ transform:translateY(-45px) scale(1.7); opacity:0; }
-}
+  .cake{
+    width:260px;
+    height:155px;
+    background:#f6b1c3;
+    border-radius:26px;
+    position:relative;
+    cursor:pointer;
+    box-shadow:0 18px 40px rgba(0,0,0,0.28);
+  }
+  .cake::before{
+    content:"";
+    position:absolute;
+    top:-20px;
+    left:0;
+    width:100%;
+    height:34px;
+    background:#ffd6e0;
+    border-radius:26px 26px 18px 18px;
+  }
 
-/* WISH */
-#wishMsg{
-  margin-top:14px;
-  font-size:16px;
-  font-weight:800;
-  color:#fff;
-  display:none;
-  text-align:center;
-  text-shadow:0 0 12px rgba(255,255,255,0.9),
-              0 0 22px rgba(255,160,200,0.9);
-}
+  /* cake image */
+  .cake-photo{
+    position:absolute;
+    top:40px;
+    left:50%;
+    transform:translateX(-50%);
+    width:92px;
+    height:92px;
+    border-radius:18px;
+    overflow:hidden;
+    border:3px solid rgba(255,255,255,0.95);
+    box-shadow:0 8px 16px rgba(0,0,0,0.35);
+    background:rgba(255,255,255,0.2);
+  }
+  .cake-photo img{width:100%; height:100%; object-fit:cover;}
 
-/* CALENDAR */
-.calendar{
-  position:absolute;
-  right:30px;
-  top:130px;
-  width:160px;
-  background:rgba(255,255,255,0.92);
-  border-radius:18px;
-  padding:12px;
-  font-size:13px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.25);
-}
-.calendar h3{margin:5px 0; text-align:center;}
-.days{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:4px;
-  margin-top:6px;
-}
-.day{
-  padding:4px;
-  text-align:center;
-}
-.mark{
-  background:pink;
-  border-radius:50%;
-  font-weight:800;
-}
+  /* name */
+  .name{
+    position:absolute;
+    bottom:12px;
+    width:100%;
+    text-align:center;
+    font-family:'Comic Sans MS', cursive;
+    font-size:24px;
+    color:#1a1a1a;
+  }
 
-/* PHOTOS SLIDE 1 */
-.photos{
-  position:absolute;
-  bottom:30px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:12px;
-}
-.photos img{
-  width:65px;
-  height:85px;
-  object-fit:cover;
-  border-radius:12px;
-  border:2px solid rgba(255,255,255,0.9);
-  cursor:pointer;
-  transition:0.2s;
-  filter: contrast(1.05) saturate(0.9);
-}
-.photos img:hover{
-  transform:scale(1.1);
-}
+  /* sprinkles (more) */
+  .sprinkle{position:absolute; width:6px; height:6px; border-radius:50%;}
+  .sprinkle.big{width:7px;height:7px;}
+  .s1{top:12px; left:20px; background:#ff6f91}
+  .s2{top:20px; left:55px; background:#ffc75f}
+  .s3{top:14px; left:92px; background:#845ec2}
+  .s4{top:26px; left:135px; background:#4d96ff}
+  .s5{top:10px; left:170px; background:#00c9a7}
+  .s6{top:22px; left:208px; background:#ff9671}
+  .s7{top:6px; left:120px; background:#f9f871}
+  .s8{top:28px; left:108px; background:#c34a36}
+  .s9{top:18px; left:160px; background:#b0a8b9}
+  .s10{top:10px; left:76px; background:#0081cf}
+  .s11{top:24px; left:30px; background:#ff4d6d}
+  .s12{top:8px; left:210px; background:#7bdff2}
+  .s13{top:16px; left:190px; background:#b2f7ef}
+  .s14{top:30px; left:62px; background:#ffd6a5}
+  .s15{top:12px; left:145px; background:#a0c4ff}
 
-/* Designs near photos */
-.photos::before{
-  content:"✦ ✧ ✦ ✧ ✦";
-  position:absolute;
-  top:-28px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:18px;
-  color:white;
-  opacity:0.85;
-  text-shadow:0 0 12px rgba(255,255,255,0.9);
-}
-.photos::after{
-  content:"♡ ♡ ♡";
-  position:absolute;
-  bottom:-22px;
-  left:50%;
-  transform:translateX(-50%);
-  font-size:18px;
-  color:pink;
-  opacity:0.95;
-  text-shadow:0 0 12px rgba(255,150,200,0.9);
-}
+  /* candles */
+  .candles{
+    position:absolute;
+    top:-46px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:38px;
+    pointer-events:none;
+  }
+  .candle{
+    width:10px;
+    height:42px;
+    background:white;
+    border-radius:3px;
+    position:relative;
+  }
+  .flame{
+    width:13px;
+    height:13px;
+    background:orange;
+    border-radius:50%;
+    position:absolute;
+    top:-13px;
+    left:-1.5px;
+    animation:flicker .15s infinite alternate;
+  }
+  @keyframes flicker{from{transform:scale(1)}to{transform:scale(1.25)}}
 
-/* PHOTO POPUP */
-#popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:80;
-}
-#popup img{
-  width:85%;
-  max-width:380px;
-  border-radius:18px;
-  border:4px solid white;
-  box-shadow:0 10px 25px rgba(0,0,0,0.5);
-}
+  /* smoke */
+  .smoke-wrap{
+    position:absolute;
+    top:-70px;
+    left:50%;
+    transform:translateX(-50%);
+    width:180px;
+    height:70px;
+    pointer-events:none;
+    display:none;
+  }
+  .smoke{
+    position:absolute;
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:rgba(220,220,220,0.95);
+    animation:smokeUp 1.8s ease-out forwards;
+  }
+  @keyframes smokeUp{
+    0%{ transform:translateY(22px) scale(.75); opacity:.85; }
+    100%{ transform:translateY(-48px) scale(1.8); opacity:0; }
+  }
 
-/* CONFETTI */
-.confetti{
-  position:fixed;
-  width:8px;
-  height:8px;
-  animation:fall 2s linear forwards;
-  z-index:30;
-}
-@keyframes fall{
-  to{transform:translateY(100vh) rotate(360deg)}
-}
+  /* wish msg */
+  #wishMsg{
+    margin-top:14px;
+    text-align:center;
+    font-weight:900;
+    color:white;
+    display:none;
+    text-shadow:0 0 14px rgba(255,255,255,.9), 0 0 24px rgba(255,130,190,.85);
+  }
 
-/* PLAYLIST POPUP */
-#playlistPopup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:90;
-}
-.popupBox{
-  width:310px;
-  background:white;
-  border-radius:22px;
-  padding:25px;
-  text-align:center;
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
-.popupBox h2{
-  margin:0;
-  font-size:20px;
-}
-.popupBox p{
-  font-size:14px;
-  color:#555;
-  margin-top:10px;
-  line-height:1.4;
-}
-.popupBox a{
-  display:inline-block;
-  margin-top:18px;
-  padding:12px 18px;
-  border-radius:25px;
-  background:#ff4d6d;
-  color:white;
-  text-decoration:none;
-  font-weight:bold;
-}
-.closeBtn{
-  margin-top:15px;
-  display:block;
-  font-size:13px;
-  color:#777;
-  cursor:pointer;
-}
+  /* calendar */
+  .calendar{
+    position:absolute;
+    right:20px;
+    top:140px;
+    width:168px;
+    background:rgba(255,255,255,0.92);
+    border-radius:18px;
+    padding:12px;
+    font-size:13px;
+    box-shadow:0 12px 26px rgba(0,0,0,0.25);
+  }
+  .calendar h3{margin:6px 0; text-align:center; font-weight:900;}
+  .days{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:4px;
+    margin-top:8px;
+  }
+  .day{padding:4px; text-align:center;}
+  .mark{
+    background:pink;
+    border-radius:50%;
+    font-weight:900;
+    box-shadow:0 0 0 2px rgba(255,255,255,0.85);
+  }
 
-/* ---------- SLIDE 2 LETTER ---------- */
-.letterTitle{
-  text-align:center;
-  font-size:34px;
-  font-weight:800;
-  color:white;
-  margin:10px 0 4px;
-  text-shadow:0 10px 30px rgba(0,0,0,0.55);
-}
-.hint{
-  text-align:center;
-  color:rgba(255,255,255,0.85);
-  margin:0 0 10px;
-  font-weight:600;
-}
+  /* slide 1 photos */
+  .photos{
+    position:absolute;
+    bottom:26px;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    gap:12px;
+    z-index:10;
+  }
+  .photos img{
+    width:66px;
+    height:86px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid rgba(255,255,255,0.92);
+    cursor:pointer;
+    transition:.2s;
+    filter: contrast(1.06) saturate(.92);
+    box-shadow:0 10px 22px rgba(0,0,0,.25);
+  }
+  .photos img:hover{transform:scale(1.08);}
+  /* cute designs near photos */
+  .photos::before{
+    content:"✦ ✧ ✦ ✧ ✦";
+    position:absolute;
+    top:-28px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:18px;
+    color:white;
+    opacity:.9;
+    text-shadow:0 0 12px rgba(255,255,255,0.9);
+  }
+  .photos::after{
+    content:"♡ ♡ ♡";
+    position:absolute;
+    bottom:-22px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:18px;
+    color:pink;
+    opacity:.95;
+    text-shadow:0 0 12px rgba(255,150,200,0.9);
+  }
 
-.envelopeStage{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:flex-start;
-  gap:14px;
-}
+  /* popup image viewer */
+  #popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.78);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:250;
+  }
+  #popup img{
+    width:86%;
+    max-width:390px;
+    border-radius:18px;
+    border:4px solid white;
+    box-shadow:0 14px 30px rgba(0,0,0,0.55);
+  }
 
-.envelope{
-  width:min(560px, 88vw);
-  height:240px;
-  border-radius:22px;
-  background:linear-gradient(to bottom,#ffffff,#f8e9f1);
-  box-shadow:0 18px 42px rgba(0,0,0,0.35);
-  position:relative;
-  cursor:pointer;
-  overflow:hidden;
-  margin-top:0px;
-  transition:.25s;
-}
-.envelope:hover{transform:scale(1.02);}
+  /* confetti */
+  .confetti{
+    position:fixed;
+    width:8px;
+    height:8px;
+    animation:fall 1.9s linear forwards;
+    z-index:120;
+  }
+  @keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
 
-.env-pocket{
-  position:absolute;
-  inset:0;
-  background:rgba(255,255,255,0.9);
-  clip-path:polygon(0 40%,50% 78%,100% 40%,100% 100%,0 100%);
-}
-.env-flap{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(to bottom,#ffe1ea,#fff);
-  clip-path:polygon(0 0,100% 0,50% 55%);
-  opacity:0.95;
-}
-.env-seal{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  width:62px;
-  height:62px;
-  border-radius:50%;
-  background:#ff4d6d;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:26px;
-  color:white;
-  box-shadow:0 10px 22px rgba(0,0,0,0.25);
-}
-.env-dots{
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle, rgba(255,120,170,0.35) 2px, transparent 2px);
-  background-size:22px 22px;
-  opacity:0.35;
-}
+  /* spotify popup */
+  #playlistPopup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:260;
+  }
+  .popupBox{
+    width:315px;
+    background:white;
+    border-radius:22px;
+    padding:26px;
+    text-align:center;
+    box-shadow:0 16px 44px rgba(0,0,0,0.45);
+    border:2px solid rgba(255,160,200,.55);
+  }
+  .popupBox h2{margin:0; font-size:20px; font-weight:900;}
+  .popupBox p{font-size:14px; color:#555; margin:10px 0 0; line-height:1.4;}
+  .popupBox a{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 18px;
+    border-radius:25px;
+    background:#ff4d6d;
+    color:white;
+    text-decoration:none;
+    font-weight:900;
+    box-shadow:0 10px 22px rgba(255,77,109,.25);
+  }
+  .closeBtn{
+    margin-top:14px;
+    display:block;
+    font-size:13px;
+    color:#777;
+    cursor:pointer;
+    font-weight:800;
+  }
 
-/* slide 2 photo */
-.slide2Photo{
-  width:min(720px, 92vw);
-  max-height:48vh;
-  border-radius:22px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,0.45);
-  box-shadow:0 18px 42px rgba(0,0,0,0.30);
-  background:rgba(0,0,0,0.15);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.slide2Photo img{
-  width:100%;
-  height:100%;
-  max-height:48vh;
-  object-fit:contain;
-  display:block;
-}
+  /* ---------- SLIDE 2 ---------- */
+  .letterTitle{
+    text-align:center;
+    font-size:34px;
+    font-weight:900;
+    color:white;
+    margin:6px 0 2px;
+    text-shadow:0 12px 30px rgba(0,0,0,0.55);
+  }
+  .hint{
+    text-align:center;
+    color:rgba(255,255,255,0.85);
+    margin:0 0 10px;
+    font-weight:800;
+  }
 
-/* letter popup */
-#letterPopup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.75);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:95;
-}
-.letterBox{
-  width:min(760px, 92vw);
-  max-height:82vh;
-  overflow:auto;
-  background:linear-gradient(to bottom,#fffaf4,#fff);
-  border-radius:24px;
-  padding:28px;
-  box-shadow:0 18px 60px rgba(0,0,0,0.45);
-  border:2px solid rgba(255,190,210,0.6);
-  font-family:Georgia, serif;
-}
-.letterBox h2{
-  margin:0 0 14px;
-  font-size:26px;
-  text-align:center;
-}
-.letterBox p{
-  font-size:16px;
-  line-height:1.65;
-  color:#333;
-}
-.letterClose{
-  text-align:center;
-  margin-top:16px;
-  font-weight:800;
-  cursor:pointer;
-  color:#ff4d6d;
-}
+  .envelopeStage{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap:14px;
+    margin-top:6px;
+  }
 
-/* phone adjustments */
-@media(max-width:600px){
-  .panel{height:min(680px, 92vh); padding:22px;}
-  .mainTitle{font-size:28px;}
-  .calendar{right:10px; top:150px; width:140px;}
-  .cake{width:230px;}
-  .photos img{width:58px;height:78px;}
-}
+  .envelope{
+    width:min(580px, 90vw);
+    height:235px;
+    border-radius:22px;
+    background:linear-gradient(to bottom,#ffffff,#f8e9f1);
+    box-shadow:0 18px 44px rgba(0,0,0,0.35);
+    position:relative;
+    cursor:pointer;
+    overflow:hidden;
+    transition:.2s;
+  }
+  .envelope:hover{transform:scale(1.02);}
+  .env-pocket{
+    position:absolute;
+    inset:0;
+    background:rgba(255,255,255,0.92);
+    clip-path:polygon(0 40%,50% 78%,100% 40%,100% 100%,0 100%);
+  }
+  .env-flap{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to bottom,#ffe1ea,#fff);
+    clip-path:polygon(0 0,100% 0,50% 55%);
+    opacity:.95;
+  }
+  .env-seal{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:50%;
+    background:#ff4d6d;
+    display:flex;justify-content:center;align-items:center;
+    font-size:26px;color:white;
+    box-shadow:0 10px 22px rgba(0,0,0,0.25);
+  }
+  .env-dots{
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle, rgba(255,120,170,0.35) 2px, transparent 2px);
+    background-size:22px 22px;
+    opacity:.35;
+  }
+
+  /* slide 2 bottom photo (FULL VIEW) */
+  .slide2Photo{
+    width:min(760px, 92vw);
+    max-height:42vh;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.45);
+    box-shadow:0 18px 42px rgba(0,0,0,0.30);
+    background:rgba(0,0,0,0.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .slide2Photo img{
+    width:100%;
+    height:100%;
+    max-height:42vh;
+    object-fit:contain; /* NO CROP */
+    display:block;
+  }
+
+  /* letter popup */
+  #letterPopup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.78);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:270;
+  }
+  .letterBox{
+    width:min(780px, 92vw);
+    max-height:82vh;
+    overflow:auto;
+    background:linear-gradient(to bottom,#fffaf4,#fff);
+    border-radius:24px;
+    padding:26px;
+    box-shadow:0 18px 60px rgba(0,0,0,0.45);
+    border:2px solid rgba(255,190,210,0.6);
+    font-family:Georgia, serif;
+  }
+  .letterBox h2{
+    margin:0 0 14px;
+    font-size:26px;
+    text-align:center;
+  }
+  .letterBox p{
+    font-size:16px;
+    line-height:1.65;
+    color:#333;
+  }
+  .letterClose{
+    text-align:center;
+    margin-top:16px;
+    font-weight:900;
+    cursor:pointer;
+    color:#ff4d6d;
+  }
+
+  /* ---------- PHONE TUNING ---------- */
+  @media(max-width:600px){
+    .panel{height:min(720px, 92vh); padding:18px;}
+    .mainTitle{font-size:28px;}
+    .cakeWrap{margin-top:34px;}
+    .calendar{right:10px; top:168px; width:148px; font-size:12px;}
+    .photos img{width:58px;height:78px;}
+    #envelopeBtn{width:70px;height:56px;font-size:28px;}
+    .letterTitle{font-size:26px;}
+    .envelope{height:220px;}
+    .slide2Photo{max-height:38vh;}
+    .slide2Photo img{max-height:38vh;}
+  }
 </style>
 </head>
 
@@ -644,32 +614,26 @@ body{
 <div id="stars"></div>
 
 <div id="start">
-  <button onclick="start()">Tap to Start 🎶</button>
+  <button id="startBtn">Tap to Start 🎶</button>
 </div>
 
 <div id="slides">
   <div class="panel">
 
-    <!-- ---------- SLIDE 1 ---------- -->
+    <!-- ================= SLIDE 1 ================= -->
     <div class="slide active" id="slide1">
-
-      <div id="envelopeBtn" onclick="openPlaylistPopup(event)">💌</div>
+      <div id="envelopeBtn" data-noconfetti="1">💌</div>
 
       <div class="mainTitle">Happy Birthday Aaria 🤍</div>
       <div class="subGlow">Tap the cake to blow candles ✨</div>
 
       <div class="cakeWrap">
-        <div class="cake" id="cake">
-          <div class="sprinkle s1"></div>
-          <div class="sprinkle s2"></div>
-          <div class="sprinkle s3"></div>
-          <div class="sprinkle s4"></div>
-          <div class="sprinkle s5"></div>
-          <div class="sprinkle s6"></div>
-          <div class="sprinkle s7"></div>
-          <div class="sprinkle s8"></div>
-          <div class="sprinkle s9"></div>
-          <div class="sprinkle s10"></div>
+        <div class="cake" id="cake" data-noconfetti="1">
+          <div class="sprinkle s1"></div><div class="sprinkle s2"></div><div class="sprinkle s3"></div>
+          <div class="sprinkle s4"></div><div class="sprinkle s5"></div><div class="sprinkle s6"></div>
+          <div class="sprinkle s7"></div><div class="sprinkle s8"></div><div class="sprinkle s9"></div>
+          <div class="sprinkle s10"></div><div class="sprinkle s11 big"></div><div class="sprinkle s12"></div>
+          <div class="sprinkle s13"></div><div class="sprinkle s14"></div><div class="sprinkle s15 big"></div>
 
           <div class="candles">
             <div class="candle"><div class="flame"></div></div>
@@ -689,7 +653,7 @@ body{
 
       <div id="wishMsg">Make a wish ✨</div>
 
-      <div class="calendar">
+      <div class="calendar" data-noconfetti="1">
         <h3>8teen</h3>
         <div class="days">
           <div class="day">1</div><div class="day">2</div><div class="day">3</div>
@@ -703,55 +667,52 @@ body{
         </div>
       </div>
 
-      <div class="photos">
-        <img src="a1.png" onclick="openPopup(this.src,event)">
-        <img src="a2.png" onclick="openPopup(this.src,event)">
-        <img src="a3.png" onclick="openPopup(this.src,event)">
-        <img src="a4.png" onclick="openPopup(this.src,event)">
+      <div class="photos" data-noconfetti="1">
+        <img src="a1.png" class="tapPhoto" alt="a1">
+        <img src="a2.png" class="tapPhoto" alt="a2">
+        <img src="a3.png" class="tapPhoto" alt="a3">
+        <img src="a4.png" class="tapPhoto" alt="a4">
       </div>
-
     </div>
 
-    <!-- ---------- SLIDE 2 ---------- -->
+    <!-- ================= SLIDE 2 ================= -->
     <div class="slide" id="slide2">
-
       <div class="letterTitle">A little letter for you 🤍</div>
       <div class="hint">Tap the envelope to open it ✉</div>
 
       <div class="envelopeStage">
-        <div class="envelope" onclick="openLetter(event)">
+        <div class="envelope" id="letterEnvelope" data-noconfetti="1">
           <div class="env-dots"></div>
           <div class="env-flap"></div>
           <div class="env-pocket"></div>
           <div class="env-seal">❤</div>
         </div>
 
-        <div class="slide2Photo">
+        <div class="slide2Photo" data-noconfetti="1">
           <img src="futile.jpg" alt="futile">
         </div>
       </div>
 
-      <div class="navBtns">
-        <button onclick="goSlide(1)">← Back</button>
-        <button onclick="goSlide(2)">Next →</button>
+      <div class="navBtns" data-noconfetti="1">
+        <button id="backBtn">← Back</button>
+        <button id="nextBtn">Next →</button>
       </div>
-
     </div>
 
   </div>
 </div>
 
 <!-- PHOTO POPUP -->
-<div id="popup" onclick="closePopup()">
+<div id="popup" data-noconfetti="1">
   <img id="popupImg" src="">
 </div>
 
 <!-- LETTER POPUP -->
-<div id="letterPopup" onclick="closeLetter()">
-  <div class="letterBox" onclick="event.stopPropagation()">
+<div id="letterPopup" data-noconfetti="1">
+  <div class="letterBox" data-noconfetti="1">
     <h2>Hey Aaria 🤍</h2>
     <p>
-      Happy Birthday!! 🤍 Happy 18th!!  
+      Happy Birthday!! 🤍 Happy 18th!!
       <br><br>
       I really hope you like this little website I made for you. It honestly took me a lot of time because all of this was completely new to me — I had no idea how any of it worked at first. But I still spent nights figuring things out, fixing mistakes, and trying to make it look perfect.
       <br><br>
@@ -765,148 +726,195 @@ body{
       <br><br>
       Happy Birthday once again, Aaria 🤍
     </p>
-
-    <div class="letterClose" onclick="closeLetter()">Close ✨</div>
+    <div class="letterClose" id="letterClose">Close ✨</div>
   </div>
 </div>
 
 <!-- PLAYLIST POPUP -->
-<div id="playlistPopup" onclick="closePlaylistPopup()">
-  <div class="popupBox" onclick="event.stopPropagation()">
+<div id="playlistPopup" data-noconfetti="1">
+  <div class="popupBox" data-noconfetti="1">
     <h2>For You 💌🎶</h2>
     <p>I made a playlist for you... hope you like it 🤍</p>
-
     <a href="https://open.spotify.com/playlist/06Aj93NfdzlxVX8Sw1dlXK?si=6dc41f335ee44b1c&pt=f33258345be67b723ba7c4197d771aff" target="_blank">
       Open Playlist 🎧
     </a>
-
-    <span class="closeBtn" onclick="closePlaylistPopup()">Close</span>
+    <span class="closeBtn" id="closePlaylist">Close</span>
   </div>
 </div>
 
-<audio id="music" src="futile-devices.mp3"></audio>
+<audio id="music" src="futile-devices.mp3" preload="auto"></audio>
 
 <script>
-/* START */
-function start(){
-  document.getElementById("start").style.display="none";
-  document.getElementById("slides").style.display="flex";
-  document.getElementById("music").play();
-}
+  /* ---------- HELPERS ---------- */
+  const $ = (id)=>document.getElementById(id);
 
-/* SLIDES */
-let currentSlide = 1;
-function goSlide(n){
-  currentSlide = n;
-  document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
-  document.getElementById("slide"+n).classList.add("active");
-}
-
-/* PHOTO POPUP */
-function openPopup(src,e){
-  e.stopPropagation();
-  document.getElementById("popup").style.display="flex";
-  document.getElementById("popupImg").src = src;
-}
-function closePopup(){
-  document.getElementById("popup").style.display="none";
-}
-
-/* PLAYLIST POPUP */
-function openPlaylistPopup(e){
-  e.stopPropagation();
-  document.getElementById("playlistPopup").style.display="flex";
-}
-function closePlaylistPopup(){
-  document.getElementById("playlistPopup").style.display="none";
-}
-
-/* LETTER */
-function openLetter(e){
-  e.stopPropagation();
-  document.getElementById("letterPopup").style.display="flex";
-}
-function closeLetter(){
-  document.getElementById("letterPopup").style.display="none";
-}
-
-/* CONFETTI ANYWHERE */
-document.addEventListener("click", () => {
-  confetti();
-});
-function confetti(){
-  for(let i=0;i<28;i++){
-    let c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.top="-10px";
-    c.style.background=`hsl(${Math.random()*360},100%,60%)`;
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),2000);
+  let currentSlide = 1;
+  function showSlide(n){
+    currentSlide = n;
+    document.querySelectorAll(".slide").forEach(s=>s.classList.remove("active"));
+    $("slide"+n).classList.add("active");
   }
-}
 
-/* STARS */
-function createStars(){
-  const stars = document.getElementById("stars");
-  for(let i=0;i<55;i++){
-    let s=document.createElement("div");
-    s.className="star";
-    let size=Math.random()*3+1;
-    s.style.width=size+"px";
-    s.style.height=size+"px";
-    s.style.left=Math.random()*100+"vw";
-    s.style.top=Math.random()*100+"vh";
-    s.style.animationDuration=(Math.random()*2+1.5)+"s";
-    stars.appendChild(s);
-  }
-}
-createStars();
-
-/* FLOATING HEARTS */
-function spawnFloaty(){
-  const el=document.createElement("div");
-  el.className="floaty";
-  el.innerHTML = Math.random()>0.5 ? "🤍" : "✨";
-  el.style.left=Math.random()*100+"vw";
-  el.style.fontSize=(Math.random()*14+12)+"px";
-  el.style.setProperty("--drift",(Math.random()*120-60)+"px");
-  el.style.setProperty("--rot",(Math.random()*120-60)+"deg");
-  el.style.animationDuration=(Math.random()*3+4)+"s";
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(),6000);
-}
-setInterval(spawnFloaty,700);
-
-/* BLOW CANDLES */
-const cakeEl = document.getElementById("cake");
-const wishMsg = document.getElementById("wishMsg");
-const smokeWrap = document.getElementById("smokeWrap");
-let candlesOut = false;
-
-cakeEl.addEventListener("click", (e) => {
-  e.stopPropagation();
-  candlesOut = !candlesOut;
-
-  document.querySelectorAll(".flame").forEach(flame => {
-    flame.style.display = candlesOut ? "none" : "block";
+  /* ---------- START ---------- */
+  $("startBtn").addEventListener("click", async (e)=>{
+    e.stopPropagation();
+    $("start").style.display="none";
+    $("slides").style.display="flex";
+    try{ await $("music").play(); }catch(err){}
   });
 
-  wishMsg.style.display = candlesOut ? "block" : "none";
-
-  if(candlesOut){
-    smokeWrap.style.display="block";
-    smokeWrap.innerHTML="";
-    for(let i=0;i<6;i++){
-      let sm=document.createElement("div");
-      sm.className="smoke";
-      sm.style.left=(20 + i*18)+"px";
-      sm.style.animationDelay=(i*0.12)+"s";
-      smokeWrap.appendChild(sm);
+  /* ---------- STARS ---------- */
+  (function createStars(){
+    const stars = $("stars");
+    const count = 36; // lighter for phone
+    for(let i=0;i<count;i++){
+      let s=document.createElement("div");
+      s.className="star";
+      let size=Math.random()*3+1;
+      s.style.width=size+"px";
+      s.style.height=size+"px";
+      s.style.left=Math.random()*100+"vw";
+      s.style.top=Math.random()*100+"vh";
+      s.style.animationDuration=(Math.random()*2+1.8)+"s";
+      stars.appendChild(s);
     }
-    setTimeout(()=>{smokeWrap.style.display="none";},2000);
+  })();
+
+  /* ---------- FLOATIES ---------- */
+  function spawnFloaty(){
+    const el=document.createElement("div");
+    el.className="floaty";
+    el.textContent = Math.random()>0.55 ? "🤍" : "✨";
+    el.style.left=Math.random()*100+"vw";
+    el.style.fontSize=(Math.random()*14+12)+"px";
+    el.style.setProperty("--drift",(Math.random()*120-60)+"px");
+    el.style.setProperty("--rot",(Math.random()*120-60)+"deg");
+    el.style.animationDuration=(Math.random()*3+4)+"s";
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),6000);
   }
-});
+  setInterval(spawnFloaty, 900);
+
+  /* ---------- CONFETTI ANYWHERE (BUT NOT UI) ---------- */
+  function isNoConfettiTarget(target){
+    return !!target.closest('[data-noconfetti="1"]');
+  }
+
+  function confetti(x,y){
+    const pieces = 22; // lighter for phone
+    for(let i=0;i<pieces;i++){
+      const c=document.createElement("div");
+      c.className="confetti";
+      c.style.left = (x + (Math.random()*60-30)) + "px";
+      c.style.top  = (y + (Math.random()*10-20)) + "px";
+      c.style.background = `hsl(${Math.random()*360},100%,60%)`;
+      c.style.borderRadius = (Math.random()>0.5 ? "50%" : "2px");
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(),1900);
+    }
+  }
+
+  document.addEventListener("click",(e)=>{
+    if(isNoConfettiTarget(e.target)) return;
+    confetti(e.clientX, e.clientY);
+  });
+
+  /* ---------- PHOTO POPUP ---------- */
+  document.querySelectorAll(".tapPhoto").forEach(img=>{
+    img.addEventListener("click",(e)=>{
+      e.stopPropagation();
+      $("popupImg").src = img.getAttribute("src");
+      $("popup").style.display="flex";
+    });
+  });
+  $("popup").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    $("popup").style.display="none";
+  });
+
+  /* ---------- SPOTIFY POPUP ---------- */
+  $("envelopeBtn").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    $("playlistPopup").style.display="flex";
+  });
+  $("closePlaylist").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    $("playlistPopup").style.display="none";
+  });
+  $("playlistPopup").addEventListener("click",(e)=>{
+    if(e.target === $("playlistPopup")) $("playlistPopup").style.display="none";
+  });
+
+  /* ---------- LETTER POPUP ---------- */
+  $("letterEnvelope").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    $("letterPopup").style.display="flex";
+  });
+  $("letterClose").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    $("letterPopup").style.display="none";
+  });
+  $("letterPopup").addEventListener("click",(e)=>{
+    if(e.target === $("letterPopup")) $("letterPopup").style.display="none";
+  });
+
+  /* ---------- NAV (ONLY SLIDE 2) ---------- */
+  $("backBtn").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    showSlide(1);
+  });
+  $("nextBtn").addEventListener("click",(e)=>{
+    e.stopPropagation();
+    // only 2 slides, so Next loops to Slide 1
+    showSlide(1);
+  });
+
+  /* ---------- BLOW CANDLES ---------- */
+  const cakeEl = $("cake");
+  const wishMsg = $("wishMsg");
+  const smokeWrap = $("smokeWrap");
+  let candlesOut = false;
+
+  cakeEl.addEventListener("click",(e)=>{
+    e.stopPropagation();
+    candlesOut = !candlesOut;
+
+    document.querySelectorAll(".flame").forEach(flame=>{
+      flame.style.display = candlesOut ? "none" : "block";
+    });
+
+    wishMsg.style.display = candlesOut ? "block" : "none";
+
+    if(candlesOut){
+      smokeWrap.style.display="block";
+      smokeWrap.innerHTML="";
+      for(let i=0;i<6;i++){
+        const sm=document.createElement("div");
+        sm.className="smoke";
+        sm.style.left = (22 + i*20) + "px";
+        sm.style.animationDelay = (i*0.12) + "s";
+        smokeWrap.appendChild(sm);
+      }
+      setTimeout(()=>{smokeWrap.style.display="none";},1900);
+    }
+  });
+
+  /* OPTIONAL: swipe slide on phone */
+  let startX=null;
+  document.addEventListener("touchstart",(e)=>{
+    if(isNoConfettiTarget(e.target)) return;
+    startX = e.touches[0].clientX;
+  },{passive:true});
+  document.addEventListener("touchend",(e)=>{
+    if(startX===null) return;
+    const endX = e.changedTouches[0].clientX;
+    const dx = endX - startX;
+    startX=null;
+    if(Math.abs(dx) < 70) return;
+    // swipe left => slide2, swipe right => slide1
+    if(dx < 0) showSlide(2);
+    else showSlide(1);
+  },{passive:true});
 </script>
 
 </body>
