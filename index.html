@@ -111,18 +111,24 @@
   /* ---------- SLIDE 1 ---------- */
 
   /* playlist button ONLY slide 1 — moved lower so no collision */
-  #playlistBtn{
-    position:absolute;
-    top:70px; right:16px;           /* <<< FIXED */
-    width:66px; height:52px;
-    background:rgba(255,255,255,0.95);
-    border-radius:18px;
-    border:2px solid #ff8fab;
-    cursor:pointer;
-    display:flex; justify-content:center; align-items:center;
-    box-shadow:0 10px 22px rgba(0,0,0,0.25);
-    z-index:10;
-  }
+#playlistBtn{
+  position:absolute;
+  top:auto;
+  right:12px;
+  bottom:12px;          /* ✅ moved to bottom */
+  width:66px;
+  height:52px;
+  background:rgba(255,255,255,0.95);
+  border-radius:18px;
+  border:2px solid #ff8fab;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  box-shadow:0 10px 22px rgba(0,0,0,0.25);
+  z-index:10;
+}
+  
   .envIcon{
     font-size:26px;
     display:inline-block;
@@ -773,7 +779,7 @@
               <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div>
               <div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div>
               <div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div>
-              <div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day mark">26</div>
+              <div class="day">22</div><div class="day">23</div><div class="day">24<div class="day">25</div><div class="day mark">26</div><div class="day">27</div><div class="day">28</div>
             </div>
           </div>
         </div>
